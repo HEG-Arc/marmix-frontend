@@ -1,0 +1,42 @@
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-10">
+	<h2>Balance</h2>
+	  <span>{{  }}</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-10">
+	<h2>Stocks</h2>
+	<table class="table table-striped table-bordered">
+	  <tr>
+	    <th>Symbol</th>
+	    <th>Current</th>
+	  </tr>
+	  <tr ng-repeat="stock in stocks">
+	    <td><a href="#/stock/{{stock.id}}">{{stock.symbol}}</a></td>
+	    <td>{{stock.price}}</td>
+	  </tr>
+	</table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-10">
+	<h2>Orders</h2>
+	<table class="table table-striped table-bordered">
+	  <tr>
+	    <th>Symbol</th>
+	    <th>Current</th>
+	  </tr>
+	  <tr ng-repeat="order in orders">
+	    <td>{{order.team}}</a></td>
+	    <td>{{order.price}}</td>
+	  </tr>
+	</table>
+      </div>
+    </div>
+
+  </div>

@@ -1,0 +1,77 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-10">
+      <h2>{{stock.name}}</h2>
+      <dl>
+        <dt>Quantity</dt>
+    	<dd>{{stock.quantity}}</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-10">
+      <table class="table table table-striped table-bordered">
+	 <tr>
+	   <th>Day</th>
+    	   <th>Open</th>
+	   <th>High</th>
+	   <th>Low</th>
+	   <th>Close</th>
+	   <th>Volume</th>
+	 </tr>
+	 <tr ng-repeat="day in stock.history">
+	   <td>R{{ day.sim_round }}D{{ day.sim_day }}</td>
+	   <td>{{ day.price_open }}</td>
+	   <td>{{ day.price_high }}</td>
+	   <td>{{ day.price_low }}</td>
+	   <td>{{ day.price_close }}</td>
+	   <td>{{ day.volume }}</td>
+	 </tr>
+      </table>
+    </div>
+  </div>
+<!--
+  <div class="row">
+    <div class="col-md-10">
+      <form novalidate name="MyForm">
+	<h3>Order</h3>
+	<ng-form name="type">
+	  <div ng-init="share = {order: 'Buy'}">
+	    <label for="buy">Buy</label>
+	    <input type="radio"
+		name="order"
+		ng-model="share.order"
+		value="Buy"
+		id="buy">
+	    <label for="sell">Sell</label>
+	    <input type="radio"
+		name="order"
+		ng-model="share.order"
+		value="Sell"
+		id="sell">
+	  </div>
+	</ng-form>
+	<h3>Quantity</h3>
+	<ng-form name="quantity">
+	  <input type="number"
+	      ng-model=""
+	      required>
+	</ng-form>
+      </form>
+    </div>
+  </div>
+-->
+  <div class="row">
+    <div class="col-md-10">
+      <p><a href="#/">Back</a></p>
+    </div>
+  </div>
+
+  <canvas id="line" class="chart chart-line" data="data"
+    labels="labels" legend="true" series="series"
+    click="onClick">
+  </canvas>
+
+</div>
