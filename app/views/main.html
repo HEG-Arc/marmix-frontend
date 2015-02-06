@@ -2,8 +2,33 @@
 
     <div class="row">
       <div class="col-md-10">
-	<h2>Balance</h2>
-	  <span>{{  }}</span>
+	<h2>Holdings</h2>
+	<h3>Clock: R{{clock.sim_round}}/D{{clock.sim_day}} - {{clock.state}} ({{clock.timestamp|date:'medium'}})</h3>
+	<table class="table table-striped table-bordered">
+	  <tr>
+	    <th>Stock</th>
+	    <th>Quantity</th>
+	    <th>Quote</th>
+	    <th>Market Value</th>
+	    <th>Purchase Value</th>
+	    <th>Gain</th>
+	    <th>Gain %</th>
+	  </tr>
+	  <tr ng-repeat="holding in holdings">
+	    <td><a href="#/stock/{{holding.stock_id}}">{{holding.symbol}}</a></td>
+	    <td>{{holding.quantity}}</td>
+	    <td>{{holding.price | number : 2}}</td>
+	    <td>{{holding.value | number : 2}}</td>
+	    <td>{{holding.amount | number : 2}}</td>
+	    <td>{{holding.gain | number : 2}}</td>
+	    <td>{{holding.gain_p | number : 2}}%</td>
+<!--
+TODO rajouter le "cash" et la "balance", comme dans le fichier json et sur la page:
+https://m3.marmix.ch/stocks/holdings/
+Mettre le gain et le gain_p en vert ou en rouge en fonction de leur signe (+ ou -)
+-->
+	  </tr>
+	</table>
       </div>
     </div>
 
@@ -14,10 +39,15 @@
 	  <tr>
 	    <th>Symbol</th>
 	    <th>Current</th>
+	    <th>Trend</th>
 	  </tr>
 	  <tr ng-repeat="stock in stocks">
 	    <td><a href="#/stock/{{stock.id}}">{{stock.symbol}}</a></td>
-	    <td>{{stock.price}}</td>
+	    <td>{{stock.price | number : 2}}</td>
+<!--
+TODO une "trend" de l'évolution de l'action, sous la forme d'un pourcentage, avec si possible un symbole qui indique si l'évolution est positive, nulle ou négative
+-->
+	    <td>{{stock.price | number : 2}}</td>
 	  </tr>
 	</table>
       </div>
@@ -28,12 +58,21 @@
 	<h2>Orders</h2>
 	<table class="table table-striped table-bordered">
 	  <tr>
+	    <th>Date/Time</th>
 	    <th>Symbol</th>
-	    <th>Current</th>
+	    <th>Type</th>
+	    <th>Quantity</th>
+	    <th>Price</th>
 	  </tr>
 	  <tr ng-repeat="order in orders">
-	    <td>{{order.team}}</a></td>
-	    <td>{{order.price}}</td>
+	    <td>{{order.created_at | date:'medium'}}</td>
+<!--
+TODO mettre le symbole du stock à la place de l'"id"
+-->
+	    <td><a href="#/stock/{{order.stock}}">{{order.stock}}</a></td>
+	    <td>{{order.order_type}}</td>
+	    <td>{{order.quantity}}</td>
+	    <td>{{order.price | number : 2}}</td>
 	  </tr>
 	</table>
       </div>

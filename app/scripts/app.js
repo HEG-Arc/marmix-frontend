@@ -25,7 +25,7 @@ angular
         controller: 'MainCtrl'
       })
       .when('/about', {
-        templateUrl: 'views/stock-detail.html',
+        templateUrl: 'views/main.html',
         controller: 'AboutCtrl'
       })
       .when('/stock/:stockId', {
