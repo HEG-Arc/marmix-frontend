@@ -69,7 +69,7 @@ TODO une "trend" de l'évolution de l'action, sous la forme d'un pourcentage, av
 <!--
 TODO mettre le symbole du stock à la place de l'"id"
 -->
-	    <td><a href="#/stock/{{order.stock}}">{{order.stock}}</a></td>
+	    <td><a href="#/stock/{{order.stock}}">{{order.stock.symbol}}</a></td>
 	    <td>{{order.order_type}}</td>
 	    <td>{{order.quantity}}</td>
 	    <td>{{order.price | number : 2}}</td>

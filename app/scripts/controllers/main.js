@@ -10,20 +10,26 @@ TODO Pour le moment, les fichiers json sont en local, dans le dossier "app". Il 
 */
 angular.module('marmixApp')
   .controller('MainCtrl', function ($scope, $http) {
-    $http.get('holdings.json')
-    .success(function(dataHoldings) {
-      $scope.holdings = dataHoldings;
-    });
-    $http.get('clock.json')
-    .success(function(clock) {
-      $scope.clock = clock;
-    });
-    $http.get('stocks.json')
+
+    //hacks
+    $http.post('https://m3.marmix.ch/api/v1/auth/login/',
+      {username:'marmix', password:prompt('password')}
+    )
+    .then(function(result){
+      console.log('test');
+      console.log(result);
+      $http.get('https://m3.marmix.ch/api/v1/holdings/')
+      .success(function(result) {
+        $scope.holdings = result.stocks;
+         $scope.clock = result.clock;
+      });
+    });  
+    $http.get('https://m3.marmix.ch/api/v1/stocks/')
     .success(function(dataStocks) {
-      $scope.stocks = dataStocks;
+      $scope.stocks = dataStocks.results;
     });
-    $http.get('orders.json')
+    $http.get('https://m3.marmix.ch/api/v1/orders/')
     .success(function(dataOrders) {
-      $scope.orders = dataOrders;
+      $scope.orders = dataOrders.results;
     });	
 });
