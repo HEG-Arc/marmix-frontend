@@ -18,8 +18,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="holding in data.holdings.stocks track by holding.stock_id">
-          <td ng-click="$parent.chartData=data.getStock(holding.stock_id).history">{{holding.symbol}}</td>
+        <tr ng-class="{selected: currentStock.id == holding.stock_id}" ng-repeat="holding in data.holdings.stocks track by holding.stock_id">
+          <td ng-click="$parent.currentStock=data.getStock(holding.stock_id)">{{holding.symbol}}</td>
           <td class="text-right">{{holding.quantity}}</td>
           <td class="text-right">{{holding.price | number : 2}}</td>
           <td class="text-right">{{holding.value | number : 2}}</td>
@@ -52,9 +52,10 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" ng-show="currentStock.history.length > 0">
   <div class="col-md-12">
-    <am-charts chart-data="chartData"></am-charts>
+    <h3>{{currentStock.symbol}}, {{currentStock.name}}</h3>
+    <am-charts chart-data="currentStock.history"></am-charts>
   </div>
 </div>
 
@@ -70,8 +71,8 @@
         </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="stock in data.stocks track by stock.id">
-        <td ng-click="$parent.chartData=stock.history">{{stock.symbol}}</td>
+      <tr  ng-class="{selected: currentStock.id == stock.id}" ng-repeat="stock in data.stocks track by stock.id">
+        <td ng-click="$parent.currentStock=stock">{{stock.symbol}}</td>
         <td class="text-right stock" animate-on-change="stock.price">
         <span class="glyphicon glyphicon-arrow-up"></span>
         <span class="glyphicon glyphicon-arrow-down"></span>
@@ -109,7 +110,7 @@
         <td class="text-right">{{order.quantity}}</td>
         <td class="text-right">{{order.price | number : 2}}</td>
         <td class="text-right">
-          <button class="btn btn-warning btn-sm">Cancel</button>
+          <button class="btn btn-warning btn-sm" ng-click="data.cancelOrder(order)">Cancel</button>
         <td>
       </tr>
       </tbody>
@@ -121,7 +122,7 @@
   </div>
 <script type="text/ng-template" id="orderModalContent.html">
     <div class="modal-header">
-        <h3 class="modal-title">Send a {{order.type}} Order</h3>
+        <h3 class="modal-title">Send a {{order.order_type}} Order</h3>
     </div>
     <div class="modal-body">
       <form>

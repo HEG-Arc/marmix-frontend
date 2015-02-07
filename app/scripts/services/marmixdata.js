@@ -31,21 +31,22 @@ angular.module('marmixApp')
       return undefined;
     };
     
-    this.sendOrder = function(order){
-      //TODO fix serverside API for orders... missing stockid... 
-      $http.post('https://m3.marmix.ch/api/v1/orders/',
-      {order_type:'ASK', //BID|ASK
-      quantity:1,
-      price:null}
-      //team: serverside
-      //sim_round,sim_day,transaction serverside...
-      
-      )
-      .success(function(data) {
-        console.log(data);
+    this.cancelOrder = function(order){
+      $http.delete('https://m3.marmix.ch/api/v1/order/' + order.id)
+      .success(function() {
+        self.orders.splice(self.orders.indexOf(order), 1);
       });
-      //ERROR if order not valid?
-      
+    };
+    
+    this.sendOrder = function(order){
+      $http.post('https://m3.marmix.ch/api/v1/order/', order)
+      .success(function(data) {
+        //patch broken server replies...
+        $http.get('https://m3.marmix.ch/api/v1/orders/' + data.id)  
+        .success(function(orderInstance) {
+          self.orders.unshift(orderInstance);
+        });
+      });
     };
     
     //get initial data;

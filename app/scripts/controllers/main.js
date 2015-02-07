@@ -10,19 +10,18 @@
 angular.module('marmixApp')
 .controller('MainCtrl', function ($scope, $http, $modal, marmixData) {
     $scope.data = marmixData;
-    $scope.chartData = [];
     $scope.orderItemsPerPage = 10;
     $scope.orderCurrentPage = 1;
     $scope.order = function(stockID, type){
-      var modalInstance = $modal.open({
+      $modal.open({
         templateUrl: 'orderModalContent.html',
         controller: 'OrderInstanceCtrl',
         size: 'sm',
         resolve: {
           order: function(){
             return {
-              stock_id: stockID,
-              type: type,
+              stock: stockID,
+              order_type: type,
               price: null,
               quantity: 1
             };
@@ -33,12 +32,11 @@ angular.module('marmixApp')
     };
 })
 .controller('OrderInstanceCtrl', function ($scope, $modalInstance, order, marmixData) {
-  $scope.stock = marmixData.getStock(order.stock_id);
+  $scope.stock = marmixData.getStock(order.stock);
   $scope.order = order;
   $scope.ok = function () {
     $modalInstance.close();
     marmixData.sendOrder($scope.order);
-    console.log('order');
   };
 
   $scope.cancel = function () {

@@ -15,42 +15,43 @@ angular.module('marmixApp')
       scope:{
         chartData: '='
       },
-      link: function postLink(scope, element, attrs) {
-        var chart = AmCharts.makeChart("chartdiv", {
-          type: "stock",
-            "theme": "light",
-            pathToImages: "http://www.amcharts.com/lib/3/images/",
+      link: function postLink(scope) {
+        scope.chartData = scope.chartData || [];
+        var chart = AmCharts.makeChart('chartdiv', {
+          type: 'stock',
+           theme: 'light',
+            pathToImages: 'http://www.amcharts.com/lib/3/images/',
 
           dataSets: [{
             fieldMappings: [{
-              fromField: "price_open",
-              toField: "open"
+              fromField: 'price_open',
+              toField: 'open'
             }, {
-              fromField: "price_close",
-              toField: "close"
+              fromField: 'price_close',
+              toField: 'close'
             }, {
-              fromField: "price_high",
-              toField: "high"
+              fromField: 'price_high',
+              toField: 'high'
             }, {
-              fromField: "price_low",
-              toField: "low"
+              fromField: 'price_low',
+              toField: 'low'
             }, {
-              fromField: "volume",
-              toField: "volume"
+              fromField: 'volume',
+              toField: 'volume'
             }],
-            color: "#7f8da9",
+            color: '#7f8da9',
             title: 'Stock',
             dataProvider: scope.chartData,
-            categoryField: "date"
+            categoryField: 'date'
           }],
 
 
           panels: [{
-              title: "Value",
+              title: 'Value',
               showCategoryAxis: false,
               percentHeight: 70,
               valueAxes: [{
-                        id:"v1",
+                        id:'v1',
                 dashLength: 5
               }],
 
@@ -59,17 +60,17 @@ angular.module('marmixApp')
               },
 
               stockGraphs: [{
-                type: "candlestick",
-                id: "g1",
-                openField: "open",
-                closeField: "close",
-                highField: "high",
-                lowField: "low",
-                valueField: "close",
-                lineColor: "#7f8da9",
-                fillColors: "#7f8da9",
-                negativeLineColor: "#db4c3c",
-                negativeFillColors: "#db4c3c",
+                type: 'candlestick',
+                id: 'g1',
+                openField: 'open',
+                closeField: 'close',
+                highField: 'high',
+                lowField: 'low',
+                valueField: 'close',
+                lineColor: '#7f8da9',
+                fillColors: '#7f8da9',
+                negativeLineColor: '#db4c3c',
+                negativeFillColors: '#db4c3c',
                 fillAlphas: 1,
                 useDataSetColors: false,
                 comparable: false,
@@ -80,17 +81,16 @@ angular.module('marmixApp')
 
               stockLegend: {
                 valueTextRegular: undefined,
-                periodValueTextComparing: "[[percents.value.close]]%"
+                periodValueTextComparing: '[[percents.value.close]]%'
               }
             },
 
             {
-              title: "Volume",
+              title: 'Volume',
               percentHeight: 30,
               marginTop: 1,
               showCategoryAxis: true,
               valueAxes: [{
-
                 dashLength: 5
               }],
 
@@ -99,26 +99,26 @@ angular.module('marmixApp')
               },
 
               stockGraphs: [{
-                valueField: "volume",
-                type: "column",
+                valueField: 'volume',
+                type: 'column',
                 showBalloon: true,
                 fillAlphas: 1
               }],
 
               stockLegend: {
-                markerType: "none",
+                markerType: 'none',
                 markerSize: 0,
-                labelText: "",
-                periodValueTextRegular: "[[value.close]]"
+                labelText: '',
+                periodValueTextRegular: '[[value.close]]'
               }
             }
           ],
 
           chartScrollbarSettings: {
 
-            graph: "g1",
-            graphType: "line",
-            usePeriod: "DD"
+            graph: 'g1',
+            graphType: 'line',
+            usePeriod: 'DD'
           },
              
 
@@ -131,6 +131,7 @@ angular.module('marmixApp')
         scope.$watch('chartData', function(){
           chart.dataSets[0].dataProvider = scope.chartData;
           chart.validateData();
+          chart.zoomOut();
         }, true);
         
       }
