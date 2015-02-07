@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr ng-repeat="holding in data.holdings.stocks track by holding.stock_id">
-          <td><a href="#/stock/{{holding.stock_id}}">{{holding.symbol}}</a></td>
+          <td ng-click="$parent.chartData=data.getStock(holding.stock_id).history">{{holding.symbol}}</td>
           <td class="text-right">{{holding.quantity}}</td>
           <td class="text-right">{{holding.price | number : 2}}</td>
           <td class="text-right">{{holding.value | number : 2}}</td>
@@ -54,7 +54,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <am-charts></am-charts>
+    <am-charts chart-data="chartData"></am-charts>
   </div>
 </div>
 
@@ -71,7 +71,7 @@
       </thead>
       <tbody>
       <tr ng-repeat="stock in data.stocks track by stock.id">
-        <td><a href="#/stock/{{stock.id}}">{{stock.symbol}}</a></td>
+        <td ng-click="$parent.chartData=stock.history">{{stock.symbol}}</td>
         <td class="text-right stock" animate-on-change="stock.price">
         <span class="glyphicon glyphicon-arrow-up"></span>
         <span class="glyphicon glyphicon-arrow-down"></span>
@@ -101,10 +101,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="order in data.orders track by order.id">
+      <tr ng-repeat="order in data.orders | startFrom:orderCurrentPage*orderItemsPerPage | limitTo:orderItemsPerPage track by order.id">
       <!-- TODO: validated? cancel-->
         <td>{{order.created_at | date:'medium'}}</td>
-        <td><a href="#/stock/{{order.stock}}">{{order.stock.symbol}}</a></td>
+        <td>{{order.stock.symbol}}</td>
         <td>{{order.order_type}}</td>
         <td class="text-right">{{order.quantity}}</td>
         <td class="text-right">{{order.price | number : 2}}</td>
@@ -114,6 +114,7 @@
       </tr>
       </tbody>
     </table>
+    <pagination items-per-page="orderItemsPerPage" total-items="data.orders.length" ng-model="orderCurrentPage"></pagination>
   </div>
 </div>
 

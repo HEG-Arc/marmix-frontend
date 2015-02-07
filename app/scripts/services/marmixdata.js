@@ -53,6 +53,12 @@ angular.module('marmixApp')
     $http.get('https://m3.marmix.ch/api/v1/stocks/')
     .success(function(data) {
       self.stocks = data.results;
+      var year = new Date().getYear()+1900;
+      self.stocks.forEach(function(stock){
+        stock.history.forEach(function(s){
+          s.date =  new Date(year, s.sim_round, s.sim_day, 0, 0, 0, 0);
+        });
+      });
     });
     $http.get('https://m3.marmix.ch/api/v1/orders/')
     .success(function(data) {
