@@ -6,30 +6,39 @@
  * @description
  * # MainCtrl
  * Controller of the marmixApp
-TODO Pour le moment, les fichiers json sont en local, dans le dossier "app". Il faudra faire le lien avec la REST API de marmix.
 */
 angular.module('marmixApp')
-  .controller('MainCtrl', function ($scope, $http) {
-
-    //hacks
-    $http.post('https://m3.marmix.ch/api/v1/auth/login/',
-      {username:'marmix', password:prompt('password')}
-    )
-    .then(function(result){
-      console.log('test');
-      console.log(result);
-      $http.get('https://m3.marmix.ch/api/v1/holdings/')
-      .success(function(result) {
-        $scope.holdings = result.stocks;
-         $scope.clock = result.clock;
+.controller('MainCtrl', function ($scope, $http, $modal, marmixData) {
+    $scope.data = marmixData;
+    $scope.order = function(stockID, type){
+      var modalInstance = $modal.open({
+        templateUrl: 'orderModalContent.html',
+        controller: 'OrderInstanceCtrl',
+        size: 'sm',
+        resolve: {
+          order: function(){
+            return {
+              stock_id: stockID,
+              type: type,
+              price: null,
+              quantity: 1
+            };
+          }
+        }
       });
-    });  
-    $http.get('https://m3.marmix.ch/api/v1/stocks/')
-    .success(function(dataStocks) {
-      $scope.stocks = dataStocks.results;
-    });
-    $http.get('https://m3.marmix.ch/api/v1/orders/')
-    .success(function(dataOrders) {
-      $scope.orders = dataOrders.results;
-    });	
+    
+    };
+})
+.controller('OrderInstanceCtrl', function ($scope, $modalInstance, order, marmixData) {
+  $scope.stock = marmixData.getStock(order.stock_id);
+  $scope.order = order;
+  $scope.ok = function () {
+    $modalInstance.close();
+    marmixData.sendOrder($scope.order);
+    console.log('order');
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 });
