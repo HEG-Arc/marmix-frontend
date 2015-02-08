@@ -31,10 +31,10 @@
             <button class="btn btn-danger btn-sm" ng-click="order(holding.stock_id, 'ASK')">Sell</button>
           </td>
         </tr>
-        <tr>
-          <td colspan="3">Cash</td>
-          <td class="text-right">{{data.holdings.cash[0].amount | number : 2}}</td>
-          <td class="text-right">{{data.holdings.cash[0].value | number : 2}}</td>
+        <tr ng-repeat="cash in data.holdings.cash">
+          <td colspan="3">{{cash.asset}}</td>
+          <td class="text-right">{{cash.amount | number : 2}}</td>
+          <td class="text-right">{{cash.value | number : 2}}</td>
           <td></td>
           <td></td>
           <td></td>
@@ -60,7 +60,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-4">
     <h2>Stocks</h2>
     <table class="table table-striped">
       <thead>
@@ -98,11 +98,11 @@
         <th>Type</th>
         <th class="text-right">Quantity</th>
         <th class="text-right">Price</th>
-        <th class="text-right">Action</th>
+        <th class="text-right">Completed</th>
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="order in data.orders | startFrom:orderCurrentPage*orderItemsPerPage | limitTo:orderItemsPerPage track by order.id">
+      <tr ng-repeat="order in data.orders | startFrom:(orderCurrentPage-1)*orderItemsPerPage | limitTo:orderItemsPerPage track by order.id">
       <!-- TODO: validated? cancel-->
         <td>{{order.created_at | date:'medium'}}</td>
         <td>{{order.stock.symbol}}</td>
@@ -110,7 +110,8 @@
         <td class="text-right">{{order.quantity}}</td>
         <td class="text-right">{{order.price | number : 2}}</td>
         <td class="text-right">
-          <button class="btn btn-warning btn-sm" ng-click="data.cancelOrder(order)">Cancel</button>
+          {{order.transaction | date:'medium'}}
+          <button class="btn btn-warning btn-sm" ng-click="data.cancelOrder(order)" ng-show="order.transaction == null">Cancel</button>
         <td>
       </tr>
       </tbody>
