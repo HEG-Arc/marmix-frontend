@@ -108,7 +108,7 @@
         <td>{{order.stock.symbol}}</td>
         <td>{{order.order_type}}</td>
         <td class="text-right">{{order.quantity}}</td>
-        <td class="text-right">{{order.price | number : 2}}</td>
+        <td class="text-right">{{(order.price | number : 2) || 'market'}}</td>
         <td class="text-right">
           {{order.transaction | date:'medium'}}
           <button class="btn btn-warning btn-sm" ng-click="data.cancelOrder(order)" ng-show="order.transaction == null">Cancel</button>
