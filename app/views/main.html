@@ -142,6 +142,9 @@
           <p id="hint_id_price" class="help-block">Price tag for one stock. If NULL, best available price</p>
         </div>
       </form>
+      <div class="text-right">Cost: {{order.quantity * (order.price || stock.price)| number: 2}}</div>
+      <div class="text-right">CASH: {{data.holdings.cash[0].amount | number: 2}}</div>
+      <div class="text-right">Diff: {{data.holdings.cash[0].amount - (order.quantity * (order.price || stock.price)) | number: 2}}</div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">Send</button>

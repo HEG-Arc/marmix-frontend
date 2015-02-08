@@ -33,6 +33,7 @@ angular.module('marmixApp')
 })
 .controller('OrderInstanceCtrl', function ($scope, $modalInstance, order, marmixData) {
   $scope.stock = marmixData.getStock(order.stock);
+  $scope.data = marmixData;
   $scope.order = order;
   $scope.ok = function () {
     $modalInstance.close();
