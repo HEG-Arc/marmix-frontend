@@ -1,3 +1,13 @@
+#logo{
+  margin: 15px;
+}
+
+.clock{
+position: absolute;
+top: 15px;
+right: 15px;
+}
+
 .up{
   color: green;
 }
