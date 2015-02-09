@@ -86,6 +86,7 @@
       <thead>
         <tr>
           <th>Symbol</th>
+          <th class="text-right">Quantity</th>
           <th class="text-right">Current</th>
           <th class="text-right">Action</th>
         </tr>
@@ -93,6 +94,7 @@
       <tbody>
       <tr  ng-class="{selected: data.currentStock.id == stock.id}" ng-repeat="stock in data.market track by stock.id">
         <td ng-click="data.setCurrentStock(stock.id)">{{stock.symbol}}</td>
+        <td class="text-right">{{stock.quantity}}</td>
         <td class="text-right stock" animate-on-change="stock.price">
         <span class="glyphicon glyphicon-arrow-up"></span>
         <span class="glyphicon glyphicon-arrow-down"></span>
