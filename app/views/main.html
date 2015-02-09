@@ -18,8 +18,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-class="{selected: data.currentStock.id == holding.stock_id}" ng-repeat="holding in data.holdings.stocks track by holding.stock_id">
-          <td class="pointer" ng-click="data.setCurrentStock(holding.stock_id)">{{holding.symbol}}</td>
+        <tr ng-click="data.setCurrentStock(holding.stock_id)" ng-class="{selected: data.currentStock.id == holding.stock_id}" ng-repeat="holding in data.holdings.stocks track by holding.stock_id">
+          <td class="pointer">{{holding.symbol}}</td>
           <td class="text-right">{{holding.quantity}}</td>
           <td class="text-right">{{holding.price | number : 2}}</td>
           <td class="text-right">{{holding.value | number : 2}}</td>
@@ -27,8 +27,8 @@
           <td class="text-right" updown-class="holding.gain">{{holding.gain | number : 2}}</td>
           <td class="text-right" updown-class="holding.gain_p">{{holding.gain_p | number : 2}}%</td>
           <td class="text-right">
-            <button class="btn btn-success btn-sm" ng-click="order(holding.stock_id, 'BID')">Buy</button>
-            <button class="btn btn-danger btn-sm" ng-click="order(holding.stock_id, 'ASK')">Sell</button>
+            <button class="btn btn-success btn-sm" ng-click="order(holding.stock_id, 'BID');$event.stopPropagation()">Buy</button>
+            <button class="btn btn-danger btn-sm" ng-click="order(holding.stock_id, 'ASK');$event.stopPropagation()">Sell</button>
           </td>
         </tr>
         <tr ng-repeat="cash in data.holdings.cash" ng-class="{'italic':!$last}">
@@ -37,7 +37,7 @@
           <td class="text-right">{{cash.value | number : 2}}</td>
           <td></td>
           <td></td>
-          <td></td>
+          <td><button ng-show="!$last" class="btn btn-primary btn-sm" ng-click="$parent.showDividends=!$parent.showDividends"><span class="glyphicon" ng-class="{'glyphicon-zoom-in': !$parent.showDividends ,'glyphicon-zoom-out':$parent.showDividends}"></span></button></td>
         </tr>
         <tr>
           <td colspan="3">Balance</td>
@@ -54,28 +54,32 @@
 
 <div class="row" ng-show="data.currentStock.history.length > 0">
   <div class="col-md-12">
-    <h3>{{data.currentStock.symbol}}, {{data.currentStock.name}}</h3>
+    <h3>{{data.currentStock.symbol}}, {{data.currentStock.name}} <span class="red pointer" ng-click="data.setCurrentStock()">X</span></h3>
     <am-charts chart-data="data.currentStock.history"></am-charts>
   </div>
 </div>
 
 <div class="row" ng-show="showDividends">
   <div class="col-md-4">
-    <h2>Dividends payment</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Symbol</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr ng-repeat="dividend in data.dividends track by dividend.id">
-        <td>{{dividend.stock.symbol}}</td>
-        <td>{{dividend.amount | number : 2}}</td>
-      </tr>
-      </tbody>
-    </table>
+    <h2>Dividends payment <span class="red pointer" ng-click="showDividends=!showDividends">X</span></h2>
+    <tabset>
+      <tab ng-repeat="(r, rd) in data.dividends" heading="R{{r}}">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th class="text-right">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="dividend in rd track by dividend.id">
+            <td>{{dividend.stock}}</td>
+            <td class="text-right">{{dividend.amount | number : 2}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </tab>
+    </tabset>
   </div>
 </div>
 

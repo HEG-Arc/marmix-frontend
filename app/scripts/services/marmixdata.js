@@ -70,7 +70,7 @@ angular.module('marmixApp')
         });
         $http.get('https://m3.marmix.ch/api/v1/dividends/')
         .success(function(data) {
-          self.dividends = data.results;
+          self.dividends = data;
         });
     };
     this.updateOrders();

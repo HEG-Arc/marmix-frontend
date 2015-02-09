@@ -2,8 +2,16 @@
   color: green;
 }
 
+.red{
+  color: #d9534f;
+}
+
+.green{
+  color: #5cb85c
+}
+
 .down{
-  color: red;
+  color: #d9534f;
 }
 
 .pointer{
@@ -15,11 +23,22 @@
 }
 
 .change {
-    background-color: red;
+    background-color: #d9534f;
 }
 
 .italic{
     font-style: italic;
+}
+
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
 }
 
 #beamer_clock{
@@ -34,10 +53,10 @@
   -webkit-transition: all 1s ease-in;
 }
 .change-add-active {
-  background-color: red;
+  background-color: #d9534f;
 }
 .change-remove {
-    background-color: red;
+    background-color: #d9534f;
 
 }
 .change-remove-active {
@@ -45,7 +64,7 @@
 }
 
 .change-up {
-    background-color: green;
+    background-color: #5cb85c;
 }
 .change-up-add,.change-up-remove {
   background-color: white;
@@ -53,10 +72,10 @@
   -webkit-transition: all 1s ease-in;
 }
 .change-up-add-active {
-  background-color: green;
+  background-color: #5cb85c;
 }
 .change-up-remove {
-    background-color: green;
+    background-color: #5cb85c;
 
 }
 .change-up-remove-active {
