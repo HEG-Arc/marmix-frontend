@@ -57,13 +57,21 @@ angular.module('marmixApp')
       var year = new Date().getYear()+1900;
       self.stocks.forEach(function(stock){
         stock.history.forEach(function(s){
-          s.date =  new Date(year, s.sim_round, s.sim_day, 0, 0, 0, 0);
+          s.date =  new Date(year, s.sim_round + 1, s.sim_day, 0, 0, 0, 0);
         });
       });
     });
     $http.get('https://m3.marmix.ch/api/v1/orders/')
     .success(function(data) {
       self.orders = data.results;
+    });
+    $http.get('https://m3.marmix.ch/api/v1/dividends/')
+    .success(function(data) {
+      self.dividends = data.results;
+    });
+    $http.get('https://m3.marmix.ch/api/v1/tickers/')
+    .success(function(data) {
+      self.tickers = data.results;
     });
         
     //loop update holdings

@@ -1,0 +1,51 @@
+<div class="container-fluid">
+<div class="row">
+  <div class="col-md-4">
+    <h2>Net income summary</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+	  <th>Round</th>
+          <th ng-repeat="ticker in data.tickers track by ticker.id" class="text-right">{{ticker.symbol}}</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat-start="share in data.tickers[0].shares track by share.id">
+        <td>R{{share.sim_round}}</td>
+	<td ng-repeat="ticker in data.tickers track by ticker.id" class="text-right">
+	  {{data.tickers[$index].shares[$parent.$index].net_income | number: 2}}
+	</td>
+      </tr>
+      <tr ng-repeat-end>
+        <td>Dividends</td>
+	<td ng-repeat="ticker in data.tickers track by ticker.id" class="text-right">
+	  {{data.tickers[$index].shares[$parent.$index].dividends | number: 2}}
+	</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h2>Net income details</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+	  <th>Round/Day</th>
+          <th ng-repeat="ticker in data.tickers track by ticker.id" class="text-right">{{ticker.symbol}}</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="fin in data.tickers[0].financials track by fin.id">
+        <td>R{{fin.sim_round}}D{{fin.sim_day}}</td>
+	<td ng-repeat="ticker in data.tickers track by ticker.id" class="text-right">
+	  {{data.tickers[$index].financials[$parent.$index].daily_net_income | number: 2}}
+	</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
