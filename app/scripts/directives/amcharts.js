@@ -75,7 +75,7 @@ angular.module('marmixApp')
                 useDataSetColors: false,
                 comparable: false,
                 showBalloon: true,
-                balloonText: 'Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>',
+                balloonText: 'Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>Sim:<b>R[[sim_round]]/D[[sim_day]]</b><br>',
                 proCandlesticks:true
               }],
 

@@ -11,8 +11,9 @@ angular.module('marmixApp')
   .service('marmixData', function marmixData($http, $interval) {
     var self = this;
     this.holdings = {};
-    this.stocks = [];
+    this.market = [];
     this.orders = [];
+    this.currentStock = {};
     
     this.updateHoldings = function(){
       $http.get('https://m3.marmix.ch/api/v1/holdings/')
@@ -21,14 +22,14 @@ angular.module('marmixApp')
       });  
     };
     
-    this.getStock = function(stockID){
-      var i=0;
-      for(i=0; i < self.stocks.length; i++){
-        if(self.stocks[i].id === stockID){
-          return self.stocks[i];
-        }
+    //TODO: use promises or other async system.
+    this.setCurrentStock = function(stockID){
+      if(stockID){
+        self.currentStock = {id:stockID, history:[]};
+        self.updateStock();
+      }else{
+        self.currentStock = {history:[]};
       }
-      return undefined;
     };
     
     this.cancelOrder = function(order){
@@ -51,36 +52,54 @@ angular.module('marmixApp')
     
     //get initial data;
     this.updateHoldings();
-    $http.get('https://m3.marmix.ch/api/v1/stocks/')
-    .success(function(data) {
-      self.stocks = data.results;
-      var year = new Date().getYear()+1900;
-      self.stocks.forEach(function(stock){
-        stock.history.forEach(function(s){
-          s.date =  new Date(year, s.sim_round + 1, s.sim_day, 0, 0, 0, 0);
+    
+    this.updateOrders = function(){
+        $http.get('https://m3.marmix.ch/api/v1/orders/')
+        .success(function(data) {
+          self.orders = data.results;
         });
-      });
-    });
-    $http.get('https://m3.marmix.ch/api/v1/orders/')
-    .success(function(data) {
-      self.orders = data.results;
-    });
-    $http.get('https://m3.marmix.ch/api/v1/dividends/')
-    .success(function(data) {
-      self.dividends = data.results;
-    });
-    $http.get('https://m3.marmix.ch/api/v1/tickers/')
-    .success(function(data) {
-      self.tickers = data.results;
-    });
+        $http.get('https://m3.marmix.ch/api/v1/dividends/')
+        .success(function(data) {
+          self.dividends = data.results;
+        });
+    };
+    this.updateOrders();
         
+        this.updateMarket = function(){
+        $http.get('https://m3.marmix.ch/api/v1/market/')
+        .success(function(data) {
+          self.market = data.results;
+        });
+    };
+    this.updateMarket();
+    
+    this.updateStock = function(){
+        if(self.currentStock.id){
+            $http.get('https://m3.marmix.ch/api/v1/stocks/' + self.currentStock.id + '/')
+            .success(function(data) {
+              self.currentStock = data;
+              var year = new Date().getYear()+1900;
+              self.currentStock.history.forEach(function(s){
+                s.date =  new Date(year, s.sim_round + 1, s.sim_day, 0, 0, 0, 0);
+              });
+            });  
+        }
+    };
+    
     //loop update holdings
-    $interval(this.updateHoldings, 1000);
+    $interval(this.updateHoldings, 15 * 1000);
+    $interval(this.updateOrders, 15 * 1000);
+    $interval(this.updateMarket, 2 * 1000);
+    $interval(this.updateStock, 15 * 1000);
+    
+    
     
     //fake quote updates
+    /*
     $interval(function(){
-      self.stocks.forEach(function(s){
+      self.market.forEach(function(s){
         s.price = Number(s.price) * (Math.random()+0.5);
       });
     }, 2000);
+    */
   });

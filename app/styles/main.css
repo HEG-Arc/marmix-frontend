@@ -6,13 +6,22 @@
   color: red;
 }
 
-.selected, .table-striped > tbody > tr.selected:nth-of-type(odd){
+.pointer{
+  cursor: pointer;
+}
+
+.selected, .table-striped > tbody > tr.selected:nth-of-type(odd), .table-hover > tbody > tr:hover{
   background-color: rgba(255, 251, 204, 0.8);
 }
 
 .change {
     background-color: red;
 }
+
+.italic{
+	font-style: italic;
+}
+
 .change-add,.change-remove {
   background-color: white;
   transition: all 1s;

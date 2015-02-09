@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-4">
     <h2>Net income summary</h2>
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
 	  <th>Round</th>
@@ -30,7 +30,7 @@
 <div class="row">
   <div class="col-md-4">
     <h2>Net income details</h2>
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
 	  <th>Round/Day</th>
@@ -39,7 +39,7 @@
       </thead>
       <tbody>
       <tr ng-repeat="fin in data.tickers[0].financials track by fin.id">
-        <td>R{{fin.sim_round}}D{{fin.sim_day}}</td>
+        <td>R{{fin.sim_round}}/D{{fin.sim_day|numberFixedLen:2}}</td>
 	<td ng-repeat="ticker in data.tickers track by ticker.id" class="text-right">
 	  {{data.tickers[$index].financials[$parent.$index].daily_net_income | number: 2}}
 	</td>
