@@ -89,7 +89,10 @@ angular.module('marmixApp')
             .success(function(data) {
               self.currentStock = data;
               var year = new Date().getYear()+1900;
-              self.currentStock.history.forEach(function(s){
+              self.currentStock.history.filter(function(s){
+                return s.sim_day !== 0;
+              })
+              .forEach(function(s){
                 s.date =  new Date(year, s.sim_round + 1, s.sim_day, 0, 0, 0, 0);
               });
             });  
