@@ -86,16 +86,16 @@
         </tr>
       </thead>
       <tbody>
-      <tr  ng-class="{selected: data.currentStock.id == stock.id}" ng-repeat="stock in data.market track by stock.id">
-        <td ng-click="data.setCurrentStock(stock.id)">{{stock.symbol}}</td>
-        <td class="text-right">{{stock.quantity}}</td>
+      <tr ng-click="data.setCurrentStock(stock.id)" ng-class="{selected: data.currentStock.id == stock.id}" ng-repeat="stock in data.market track by stock.id">
+        <td class="pointer">{{stock.symbol}}</td>
+        <td class="text-right">{{stock.quantity | number: 0}}</td>
         <td class="text-right stock" animate-on-change="stock.price">
         <span class="glyphicon glyphicon-arrow-up"></span>
         <span class="glyphicon glyphicon-arrow-down"></span>
         {{stock.price | number : 2}}</td>
         <td class="text-right">
-          <button class="btn btn-success btn-sm" ng-click="order(stock.id, 'BID')">Buy</button>
-          <button class="btn btn-danger btn-sm" ng-click="order(stock.id, 'ASK')">Sell</button>
+          <button class="btn btn-success btn-sm" ng-click="order(stock.id, 'BID');$event.stopPropagation()">Buy</button>
+          <button class="btn btn-danger btn-sm" ng-click="order(stock.id, 'ASK');$event.stopPropagation()">Sell</button>
         </td>
       </tr>
       </tbody>
