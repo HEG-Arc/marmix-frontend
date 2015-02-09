@@ -22,6 +22,16 @@ angular.module('marmixApp')
       });  
     };
     
+    this.getStock = function(stockID){
+      var i=0;
+      for(i=0; i < self.market.length; i++){
+        if(self.market[i].id === stockID){
+          return self.market[i];
+        }
+      }
+      return undefined;
+    };
+    
     //TODO: use promises or other async system.
     this.setCurrentStock = function(stockID){
       if(stockID){
@@ -33,7 +43,7 @@ angular.module('marmixApp')
     };
     
     this.cancelOrder = function(order){
-      $http.delete('https://m3.marmix.ch/api/v1/order/' + order.id)
+      $http.delete('https://m3.marmix.ch/api/v1/order/' + order.id + '/')
       .success(function() {
         self.orders.splice(self.orders.indexOf(order), 1);
       });
@@ -43,7 +53,7 @@ angular.module('marmixApp')
       $http.post('https://m3.marmix.ch/api/v1/order/', order)
       .success(function(data) {
         //patch broken server replies...
-        $http.get('https://m3.marmix.ch/api/v1/orders/' + data.id)  
+        $http.get('https://m3.marmix.ch/api/v1/orders/' + data.id + '/')  
         .success(function(orderInstance) {
           self.orders.unshift(orderInstance);
         });
