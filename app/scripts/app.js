@@ -32,6 +32,10 @@ angular
         templateUrl: 'views/ticker.html',
         controller: 'TickerCtrl'
       })
+      .when('/clock', {
+        templateUrl: 'views/clock.html',
+        controller: 'ClockCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

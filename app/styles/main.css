@@ -19,7 +19,13 @@
 }
 
 .italic{
-	font-style: italic;
+    font-style: italic;
+}
+
+#beamer_clock{
+    padding: 20px;
+    text-align:center;
+    font-size: 56pt;
 }
 
 .change-add,.change-remove {

@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-6">
     <h2>Holdings</h2>
-    <h3>Clock: R{{data.holdings.clock.sim_round}}/D{{data.holdings.clock.sim_day}} - {{data.holdings.clock.state}} ({{data.holdings.clock.timestamp|date:'medium'}})</h3>  
+    <h3>Clock: R{{data.holdings.clock.sim_round}}/D{{data.holdings.clock.sim_day |numberFixedLen:2 }} - {{data.holdings.clock.state}} ({{data.holdings.clock.timestamp|date:'medium'}})</h3>  
 
     <table class="table table-striped">
       <thead>
