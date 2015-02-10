@@ -16,10 +16,16 @@
 	  {{data.tickers[$index].shares[$parent.$index].net_income | number: 2}}
 	</td>
       </tr>
-      <tr ng-repeat-end>
+      <tr>
         <td>Dividends</td>
 	<td ng-repeat="ticker in data.tickers track by ticker.id" class="text-right">
 	  {{data.tickers[$index].shares[$parent.$index].dividends | number: 2}}
+	</td>
+      </tr>
+      <tr ng-repeat-end>
+        <td>Drift</td>
+	<td ng-repeat="ticker in data.tickers track by ticker.id" class="text-right">
+	  {{data.tickers[$index].shares[$parent.$index].drift}}
 	</td>
       </tr>
       </tbody>
