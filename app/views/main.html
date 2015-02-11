@@ -31,13 +31,29 @@
             <button class="btn btn-danger btn-sm" ng-click="order(holding.stock_id, 'ASK');$event.stopPropagation()">Sell</button>
           </td>
         </tr>
-        <tr ng-repeat="cash in data.holdings.cash" ng-class="{'italic':!$last}">
-          <td class="pointer" colspan="3" title="click to show details" ng-click="$parent.showDividends=!$parent.showDividends;data.setCurrentStock()">{{cash.asset}}</td>
-          <td class="text-right">{{cash.amount | number : 2}}</td>
-          <td class="text-right">{{cash.value | number : 2}}</td>
+        <tr class="italic">
+          <td colspan="3">{{data.holdings.cash.CASH.asset}}</td>
+          <td class="text-right">{{data.holdings.cash.CASH.amount | number : 2}}</td>
+          <td class="text-right">{{data.holdings.cash.CASH.value | number : 2}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr ng-show="data.holdings.cash.DIVIDENDS.amount != 0">
+          <td class="pointer" colspan="3" title="click to show details" ng-click="$parent.showDividends=!$parent.showDividends;data.setCurrentStock()">{{data.holdings.cash.DIVIDENDS.asset}}</td>
+          <td class="text-right">{{data.holdings.cash.DIVIDENDS.amount | number : 2}}</td>
+          <td class="text-right">{{data.holdings.cash.DIVIDENDS.value | number : 2}}</td>
           <td></td>
           <td></td>
           <td><button ng-show="!$last && !$first" class="btn btn-primary btn-sm" ng-click="$parent.showDividends=!$parent.showDividends"><span class="glyphicon" ng-class="{'glyphicon-zoom-in': !$parent.showDividends ,'glyphicon-zoom-out':$parent.showDividends}"></span></button></td>
+        </tr>
+        <tr class="italic">
+          <td colspan="3">{{data.holdings.cash.TRANSACTIONS.asset}}</td>
+          <td class="text-right">{{data.holdings.cash.TRANSACTIONS.amount | number : 2}}</td>
+          <td class="text-right">{{data.holdings.cash.TRANSACTIONS.value | number : 2}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
         <tr>
           <td colspan="3">Balance</td>
@@ -174,9 +190,9 @@
           <p id="hint_id_price" class="help-block">Price tag for one stock. If NULL, best available price</p>
         </div>
       </form>
-      <div class="text-right">Cost: {{order.quantity * (order.price || stock.price)| number: 2}}</div>
-      <div class="text-right">CASH: {{data.holdings.cash[0].amount | number: 2}}</div>
-      <div class="text-right">Diff: {{data.holdings.cash[0].amount - (order.quantity * (order.price || stock.price)) | number: 2}}</div>
+      <div class="text-right">Cost: {{order.quantity * (order.price || stock.price) || 0 | number: 2}}</div>
+      <div class="text-right">CASH: {{data.holdings.cash.CASH.amount | number: 2}}</div>
+      <div class="text-right">Diff: {{data.holdings.cash.CASH.amount - (order.quantity * (order.price || stock.price)) | number: 2}}</div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">Send</button>
