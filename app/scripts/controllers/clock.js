@@ -15,12 +15,21 @@ angular.module('marmixApp')
             $scope.clock = data;
         });
     }
+    function updateMarket(){
+        $http.get('https://m3.marmix.ch/api/v1/market/')
+        .success(function(data) {
+            $scope.market = data.results;
+        });
+    }
+    updateMarket();
     updateClock();
     var timer = $interval(updateClock, 2 * 1000);
+    var timer2 = $interval(updateMarket, 2 * 1000);
     $scope.$on(
         '$destroy',
         function() {
             $interval.cancel( timer );
+	    $interval.cancel( timer2 );
         }
     );
   });

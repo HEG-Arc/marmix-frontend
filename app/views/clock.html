@@ -1,3 +1,25 @@
 <div id="beamer_clock" animate-on-change="clock.timestamp">
     R{{clock.sim_round}}/D{{clock.sim_day |numberFixedLen:2 }} - {{clock.state}}
 </div>
+  <div class="col-md-6 col-md-offset-3">
+    <h2>Stocks</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th class="text-right">Quantity</th>
+          <th class="text-right">Current</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="stock in market track by stock.id">
+        <td>{{stock.symbol}}</td>
+        <td class="text-right">{{stock.quantity | number: 0}}</td>
+        <td class="text-right stock" animate-on-change="stock.price">
+        <span class="glyphicon glyphicon-arrow-up"></span>
+        <span class="glyphicon glyphicon-arrow-down"></span>
+        {{stock.price | number : 2}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
