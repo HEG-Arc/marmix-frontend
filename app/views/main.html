@@ -32,14 +32,14 @@
           </td>
         </tr>
         <tr ng-show="data.holdings.cash.TRANSACTIONS" class="italic">
-          <td colspan="3">{{data.holdings.cash.TRANSACTIONS.asset}}</td>
+          <td class="pointer" colspan="3" ng-click="data.setCurrentStock()">{{data.holdings.cash.TRANSACTIONS.asset}}</td>
           <td class="text-right">{{data.holdings.cash.TRANSACTIONS.amount | number : 2}}</td>
           <td class="text-right">{{data.holdings.cash.TRANSACTIONS.value | number : 2}}</td>
           <td></td>
           <td></td>
           <td></td>
         </tr>
-        <tr ng-show="data.holdings.cash.DIVIDENDS">
+        <tr ng-show="data.holdings.cash.DIVIDENDS" class="italic">
           <td class="pointer" colspan="3" title="click to show details" ng-click="$parent.showDividends=!$parent.showDividends;data.setCurrentStock()">{{data.holdings.cash.DIVIDENDS.asset}}</td>
           <td class="text-right">{{data.holdings.cash.DIVIDENDS.amount | number : 2}}</td>
           <td class="text-right">{{data.holdings.cash.DIVIDENDS.value | number : 2}}</td>
@@ -47,8 +47,8 @@
           <td></td>
           <td><button ng-show="!$last && !$first" class="btn btn-primary btn-sm" ng-click="$parent.showDividends=!$parent.showDividends"><span class="glyphicon" ng-class="{'glyphicon-zoom-in': !$parent.showDividends ,'glyphicon-zoom-out':$parent.showDividends}"></span></button></td>
         </tr>
-        <tr class="italic">
-          <td colspan="3">{{data.holdings.cash.CASH.asset}}</td>
+        <tr>
+          <td class="pointer" colspan="3" ng-click="data.setCurrentStock()">{{data.holdings.cash.CASH.asset}}</td>
           <td class="text-right">{{data.holdings.cash.CASH.amount | number : 2}}</td>
           <td class="text-right">{{data.holdings.cash.CASH.value | number : 2}}</td>
           <td></td>
