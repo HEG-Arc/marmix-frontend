@@ -2,6 +2,18 @@
   margin: 15px;
 }
 
+.orders .order.SUBMITTED{
+
+}
+
+.orders .order.PROCESSED{
+
+}
+
+.orders .order.FAILED{
+  color: #d9534f;
+}
+
 .clock{
 position: absolute;
 top: 15px;
