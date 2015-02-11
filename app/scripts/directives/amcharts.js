@@ -102,6 +102,7 @@ angular.module('marmixApp')
                 valueField: 'volume',
                 type: 'column',
                 showBalloon: true,
+                balloonText: 'Volume:<b>[[volume]]</b><br>Sim:<b>R[[sim_round]]/D[[sim_day]]</b><br>',
                 fillAlphas: 1
               }],
 
