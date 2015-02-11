@@ -20,7 +20,7 @@ angular.module('marmixApp')
         var chart = AmCharts.makeChart('chartdiv', {
           type: 'stock',
            theme: 'light',
-            pathToImages: 'http://www.amcharts.com/lib/3/images/',
+            pathToImages: '//www.amcharts.com/lib/3/images/',
 
           dataSets: [{
             fieldMappings: [{
