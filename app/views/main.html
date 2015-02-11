@@ -31,15 +31,15 @@
             <button class="btn btn-danger btn-sm" ng-click="order(holding.stock_id, 'ASK');$event.stopPropagation()">Sell</button>
           </td>
         </tr>
-        <tr class="italic">
-          <td colspan="3">{{data.holdings.cash.CASH.asset}}</td>
-          <td class="text-right">{{data.holdings.cash.CASH.amount | number : 2}}</td>
-          <td class="text-right">{{data.holdings.cash.CASH.value | number : 2}}</td>
+        <tr ng-show="data.holdings.cash.TRANSACTIONS" class="italic">
+          <td colspan="3">{{data.holdings.cash.TRANSACTIONS.asset}}</td>
+          <td class="text-right">{{data.holdings.cash.TRANSACTIONS.amount | number : 2}}</td>
+          <td class="text-right">{{data.holdings.cash.TRANSACTIONS.value | number : 2}}</td>
           <td></td>
           <td></td>
           <td></td>
         </tr>
-        <tr ng-show="data.holdings.cash.DIVIDENDS.amount != 0">
+        <tr ng-show="data.holdings.cash.DIVIDENDS">
           <td class="pointer" colspan="3" title="click to show details" ng-click="$parent.showDividends=!$parent.showDividends;data.setCurrentStock()">{{data.holdings.cash.DIVIDENDS.asset}}</td>
           <td class="text-right">{{data.holdings.cash.DIVIDENDS.amount | number : 2}}</td>
           <td class="text-right">{{data.holdings.cash.DIVIDENDS.value | number : 2}}</td>
@@ -48,9 +48,9 @@
           <td><button ng-show="!$last && !$first" class="btn btn-primary btn-sm" ng-click="$parent.showDividends=!$parent.showDividends"><span class="glyphicon" ng-class="{'glyphicon-zoom-in': !$parent.showDividends ,'glyphicon-zoom-out':$parent.showDividends}"></span></button></td>
         </tr>
         <tr class="italic">
-          <td colspan="3">{{data.holdings.cash.TRANSACTIONS.asset}}</td>
-          <td class="text-right">{{data.holdings.cash.TRANSACTIONS.amount | number : 2}}</td>
-          <td class="text-right">{{data.holdings.cash.TRANSACTIONS.value | number : 2}}</td>
+          <td colspan="3">{{data.holdings.cash.CASH.asset}}</td>
+          <td class="text-right">{{data.holdings.cash.CASH.amount | number : 2}}</td>
+          <td class="text-right">{{data.holdings.cash.CASH.value | number : 2}}</td>
           <td></td>
           <td></td>
           <td></td>
@@ -139,7 +139,7 @@
     <table class="table table-striped">
       <thead>
       <tr>
-		<th>Round/Day</th>
+	<th>Round/Day</th>
         <th>Date/Time</th>
         <th>Symbol</th>
         <th>Type</th>
