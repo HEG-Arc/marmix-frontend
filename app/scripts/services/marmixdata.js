@@ -116,7 +116,7 @@ angular.module('marmixApp')
     $interval(this.updateOrders, 15 * 1000);
     $interval(this.updateMarket, 2 * 1000);
     $interval(this.updateStock, 15 * 1000);
-    $interval(this.updateStockBook, 2 * 1000);
+    $interval(this.updateStockBook, 5 * 1000);
     
     
     

@@ -113,7 +113,11 @@
       </thead>
       <tbody>
       <tr ng-repeat="order in data.ordersBook" ng-class="{bid: order.order_type == 'BID', ask: order.order_type == 'ASK', market: order.order_type == 'MARKET'}">
-        <td>{{order.quantity | number: 0}} ({{ order.orders | number: 0 }})</td>
+        <td ng-if="order.order_type != 'MARKET'">
+	  {{order.quantity | number: 0}} ({{ order.orders | number: 0 }})
+	</td>
+        <td ng-if="order.order_type == 'MARKET'">
+	</td>
         <td>{{order.price | number : 2}}</td>
       </tr>
       </tbody>
