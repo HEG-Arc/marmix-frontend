@@ -107,16 +107,14 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Quantity</th>
+          <th>Quantity (Nb of orders)</th>
           <th>Price</th>
-          <th>Type</th>
         </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="order in data.currentStock.orders" ng-class="{bid: order.order_type == 'BID', ask: order.order_type == 'ASK'}">
-        <td>{{order.quantity | number: 0}}</td>
-        <td>{{order.price | number : 3}}</td>
-        <td>{{order.order_type}}</td>
+      <tr ng-repeat="order in data.ordersBook" ng-class="{bid: order.order_type == 'BID', ask: order.order_type == 'ASK', market: order.order_type == 'MARKET'}">
+        <td>{{order.quantity | number: 0}} ({{ order.orders | number: 0 }})</td>
+        <td>{{order.price | number : 2}}</td>
       </tr>
       </tbody>
     </table>

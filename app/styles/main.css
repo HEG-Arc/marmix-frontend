@@ -52,6 +52,10 @@ right: 15px;
   background-color: rgba(102, 178, 255, 0.8);
 }
 
+.market{
+  background-color: rgba(168, 168, 168, 0.8);
+}
+
 .change {
     background-color: #d9534f;
 }

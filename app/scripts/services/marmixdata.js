@@ -14,6 +14,7 @@ angular.module('marmixApp')
     this.market = [];
     this.orders = [];
     this.currentStock = {};
+    this.ordersBook = [];
     
     this.updateHoldings = function(){
       $http.get('https://m3.marmix.ch/api/v1/holdings/')
@@ -37,6 +38,7 @@ angular.module('marmixApp')
       if(stockID){
         self.currentStock = {id:stockID, history:[]};
         self.updateStock();
+        self.updateStockBook();
       }else{
         self.currentStock = {history:[]};
       }
@@ -75,7 +77,7 @@ angular.module('marmixApp')
     };
     this.updateOrders();
         
-        this.updateMarket = function(){
+    this.updateMarket = function(){
         $http.get('https://m3.marmix.ch/api/v1/market/')
         .success(function(data) {
           self.market = data.results;
@@ -98,12 +100,23 @@ angular.module('marmixApp')
             });  
         }
     };
+
+
+    this.updateStockBook = function(){
+	$http.get('https://m3.marmix.ch/api/v1/book/' + self.currentStock.id + '/')
+	.success(function(data) {
+          self.ordersBook = data;
+	});
+    };
+    this.updateStockBook();
+
     
     //loop update holdings
     $interval(this.updateHoldings, 15 * 1000);
     $interval(this.updateOrders, 15 * 1000);
     $interval(this.updateMarket, 2 * 1000);
     $interval(this.updateStock, 15 * 1000);
+    $interval(this.updateStockBook, 2 * 1000);
     
     
     
