@@ -112,7 +112,7 @@ angular.module('marmixApp')
 
     
     //loop update holdings
-    $interval(this.updateHoldings, 15 * 1000);
+    $interval(this.updateHoldings, 5 * 1000);
     $interval(this.updateOrders, 15 * 1000);
     $interval(this.updateMarket, 2 * 1000);
     $interval(this.updateStock, 15 * 1000);
