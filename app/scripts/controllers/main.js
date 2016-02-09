@@ -8,12 +8,12 @@
  * Controller of the marmixApp
 */
 angular.module('marmixApp')
-.controller('MainCtrl', function ($scope, $http, $modal, marmixData) {
+.controller('MainCtrl', function ($scope, $http, $uibModal, marmixData) {
     $scope.data = marmixData;
     $scope.orderItemsPerPage = 10;
     $scope.orderCurrentPage = 1;
     $scope.order = function(stockID, type){
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'orderModalContent.html',
         controller: 'OrderInstanceCtrl',
         size: 'sm',
@@ -28,7 +28,6 @@ angular.module('marmixApp')
           }
         }
       });
-    
     };
 })
 .controller('OrderInstanceCtrl', function ($scope, $modalInstance, order, marmixData) {

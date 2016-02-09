@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<h2 class="clock text-right">Clock: R{{data.holdings.clock.sim_round}}/D{{data.holdings.clock.sim_day |numberFixedLen:2 }} - {{data.holdings.clock.state}}<br/><small>{{data.holdings.clock.timestamp|date:'medium'}}</small></h2>  
+<h2 class="clock text-right">Clock: R{{data.holdings.clock.sim_round}}/D{{data.holdings.clock.sim_day |numberFixedLen:2 }} - {{data.holdings.clock.state}}<br/><small>{{data.holdings.clock.timestamp|date:'medium'}}</small></h2>
 <div class="row">
   <div class="col-md-9">
     <h2>Holdings</h2>
@@ -77,11 +77,11 @@
         </tr>
       </tbody>
     </table>
-    
+
     <div ng-show="showDividends">
     <h2>Dividends payment <span class="red pointer" ng-click="showDividends=!showDividends">X</span></h2>
-    <tabset>
-      <tab ng-repeat="(r, rd) in data.dividends" heading="R{{r}}">
+    <uib-tabset>
+      <uib-tab ng-repeat="(r, rd) in data.dividends" heading="R{{r}}">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -99,9 +99,9 @@
       </tab>
     </tabset>
     </div>
-    
+
   </div>
-  
+
   <div class="col-md-3">
     <h2>Book of orders for stock {{data.currentStock.symbol}}</h2>
     <table class="table">
@@ -123,7 +123,7 @@
       </tbody>
     </table>
   </div>
-  
+
 </div>
 
 <div class="row" ng-show="data.currentStock.id">
@@ -155,7 +155,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr class="order" ng-class="order.state" ng-repeat="order in data.orders | startFrom:(orderCurrentPage-1)*orderItemsPerPage | limitTo:orderItemsPerPage track by order.id">
+      <tr class="order" ng-class="order.state" ng-repeat="order in data.orders track by order.id">
       <!-- TODO: validated? cancel-->
         <td>R{{order.sim_round}}/D{{order.sim_day|numberFixedLen:2}}</td>
         <td>{{order.created_at | date:'medium'}}</td>
@@ -171,7 +171,6 @@
       </tr>
       </tbody>
     </table>
-    <pagination items-per-page="orderItemsPerPage" total-items="data.orders.length" ng-model="orderCurrentPage"></pagination>
   </div>
 </div>
 

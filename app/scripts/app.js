@@ -17,8 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'ui.bootstrap.modal',
-    'ui.bootstrap.pagination'
+    'ui.bootstrap.tabs',
+    'ui.bootstrap.modal'
   ])
   .config(function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;
