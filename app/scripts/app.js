@@ -12,14 +12,16 @@ angular
   .module('marmixApp', [
     'ngAnimate',
     'ngCookies',
-    'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
     'ui.bootstrap.tabs',
     'ui.bootstrap.modal',
-    'smart-table'
+    'smart-table',
+    'adf',
+    'adf.provider',
+    'adf.structures.base'
   ])
   .config(function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;
@@ -36,6 +38,11 @@ angular
       .when('/clock', {
         templateUrl: 'views/clock.html',
         controller: 'ClockCtrl'
+      })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
       })
       .otherwise({
         redirectTo: '/'

@@ -15,11 +15,13 @@ angular.module('marmixApp')
     this.orders = [];
     this.currentStock = {};
     this.ordersBook = [];
+    this.clock = {};
 
     this.updateHoldings = function(){
       $http.get('https://m3.marmix.ch/api/v1/holdings/')
       .success(function(data) {
         self.holdings = data;
+        self.clock = data.clock;
       });
     };
 
