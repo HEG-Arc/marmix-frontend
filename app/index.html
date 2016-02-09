@@ -58,6 +58,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/amcharts-stock/dist/amcharts/amcharts.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
     <!-- endbower -->
     <script src="bower_components/angular-i18n/angular-locale_en-gb.js"></script>
     <script src="bower_components/amcharts-stock/dist/amcharts/serial.js"></script>
@@ -67,17 +68,22 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
     <script src="scripts/services/marmixdata.js"></script>
+    <script src="scripts/services/sessionrecoverer.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/ticker.js"></script>
+    <script src="scripts/controllers/clock.js"></script>
     <script src="scripts/directives/animateonchange.js"></script>
     <script src="scripts/directives/amcharts.js"></script>
-    <script src="scripts/services/sessionrecoverer.js"></script>
     <script src="scripts/directives/updownclass.js"></script>
-    <script src="scripts/filters/startfrom.js"></script>
-    <script src="scripts/controllers/ticker.js"></script>
     <script src="scripts/directives/tickerchart.js"></script>
+    <script src="scripts/directives/pageselect.js"></script>
+    <script src="scripts/directives/selectmultiple.js"></script>
+    <script src="scripts/directives/stnumberrange.js"></script>
+    <script src="scripts/filters/startfrom.js"></script>
     <script src="scripts/filters/numberfixedlen.js"></script>
-    <script src="scripts/controllers/clock.js"></script>
+    <script src="scripts/filters/customtablefilter.js"></script>
+
     <!-- endbuild -->
 </body>
 </html>

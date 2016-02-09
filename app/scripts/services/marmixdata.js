@@ -8,7 +8,7 @@
  * Service in the marmixApp.
  */
 angular.module('marmixApp')
-  .service('marmixData', function marmixData($http, $interval) {
+  .service('marmixData', function marmixData($http, $filter, $interval) {
     var self = this;
     this.holdings = {};
     this.market = [];
@@ -69,6 +69,7 @@ angular.module('marmixApp')
         $http.get('https://m3.marmix.ch/api/v1/orders/')
         .success(function(data) {
           self.orders = data;
+          self.orders = self.orders.map(decorateOrder);
         });
         $http.get('https://m3.marmix.ch/api/v1/dividends/')
         .success(function(data) {
@@ -112,6 +113,13 @@ angular.module('marmixApp')
     };
     this.updateStockBook();
 
+
+    //TODO: serverside?
+    function decorateOrder(order) {
+        order.date = 'R' + order.sim_round + '/D' + $filter('numberFixedLen')(order.sim_day, 2);
+        order.symbol = order.stock.symbol;
+        return order;
+    }
 
     //loop update holdings
     $interval(this.updateHoldings, 5 * 1000);

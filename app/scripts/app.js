@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'ui.bootstrap',
     'ui.bootstrap.tabs',
-    'ui.bootstrap.modal'
+    'ui.bootstrap.modal',
+    'smart-table'
   ])
   .config(function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;

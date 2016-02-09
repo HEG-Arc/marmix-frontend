@@ -129,3 +129,23 @@ right: 15px;
 .stock.change .glyphicon-arrow-down, .stock.change-add .glyphicon-arrow-down{
   display:inline-block;
 }
+
+/* smart table page select */
+
+.table.orders th{
+    vertical-align: top;
+}
+.select-page {
+  width: 50px;
+  text-align: center;
+}
+.pagination li a input {
+  padding: 0;
+  margin: -5px 0;
+}
+
+
+.form-inline.st-number-range .form-group,
+.form-inline.st-number-range .form-control{
+    width: 80px;
+}

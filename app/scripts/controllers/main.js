@@ -10,8 +10,6 @@
 angular.module('marmixApp')
 .controller('MainCtrl', function ($scope, $http, $uibModal, marmixData) {
     $scope.data = marmixData;
-    $scope.orderItemsPerPage = 10;
-    $scope.orderCurrentPage = 1;
     $scope.order = function(stockID, type){
       $uibModal.open({
         templateUrl: 'orderModalContent.html',
