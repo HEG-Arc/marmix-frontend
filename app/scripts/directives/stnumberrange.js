@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('marmixApp')
-.directive('stNumberRange', ['$timeout', function ($timeout) {
+.directive('stNumberRange', ['$timeout', function () {
     return {
         restrict: 'E',
         require: '^stTable',
@@ -14,7 +14,7 @@ angular.module('marmixApp')
             var inputHigher = angular.element(inputs[1]);
             var predicateName = attr.predicate;
 
-            [inputLower, inputHigher].forEach(function (input, index) {
+            [inputLower, inputHigher].forEach(function (input) {
 
                 input.bind('blur', function () {
                     var query = {};
@@ -28,7 +28,7 @@ angular.module('marmixApp')
                     }
 
                     scope.$apply(function () {
-                        table.search(query, predicateName)
+                        table.search(query, predicateName);
                     });
                 });
             });

@@ -25,9 +25,11 @@ angular.module('marmixApp')
 
     this.getStock = function(stockID){
       var i=0;
-      for(i=0; i < self.market.length; i++){
-        if(self.market[i].id === stockID){
-          return self.market[i];
+      if(self.market){
+        for(i=0; i < self.market.length; i++){
+            if(self.market[i].id === stockID){
+            return self.market[i];
+            }
         }
       }
       return undefined;
