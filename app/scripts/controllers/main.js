@@ -28,16 +28,16 @@ angular.module('marmixApp')
       });
     };
 })
-.controller('OrderInstanceCtrl', function ($scope, $modalInstance, order, marmixData) {
+.controller('OrderInstanceCtrl', function ($scope, $uibModalInstance, order, marmixData) {
   $scope.stock = marmixData.getStock(order.stock);
   $scope.data = marmixData;
   $scope.order = order;
   $scope.ok = function () {
-    $modalInstance.close();
+    $uibModalInstance.close();
     marmixData.sendOrder($scope.order);
   };
 
   $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 });
