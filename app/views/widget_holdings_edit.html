@@ -1,0 +1,6 @@
+<div class="checkbox" ng-repeat="m in data.market">
+  <label>
+    <input type="checkbox" value="m.symbol" ng-model="config.stock[m.symbol]">
+    {{m.symbol}} {{m.name}}
+  </label>
+</div>

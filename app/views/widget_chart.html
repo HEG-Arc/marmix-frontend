@@ -1,0 +1,2 @@
+<div ng-show="data.stocksDetails[config.stockID || dashboard.currentStock.id].history.length == 0">No data</div>
+<am-charts ng-show="data.stocksDetails[config.stockID || dashboard.currentStock.id].history.length > 0" chart-data="data.stocksDetails[config.stockID || dashboard.currentStock.id].history"></am-charts>

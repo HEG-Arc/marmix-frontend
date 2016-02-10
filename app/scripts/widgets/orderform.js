@@ -6,7 +6,7 @@ angular.module('marmixApp')
       .widget('orderform', {
         title: 'Order Form',
         description: 'Displays an order form to buy/sell',
-        template: 'TODO',
+        templateUrl: 'views/widget_orderform.html',
         edit: {
             template: ' '
         },

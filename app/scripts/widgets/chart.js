@@ -6,12 +6,32 @@ angular.module('marmixApp')
       .widget('chart', {
         title: 'Chart',
         description: 'Displays chart for a stock',
-        template: 'TODO',
-        edit: {
-            template: ' '
-        },
-        controller: function($scope, marmixData){
+        templateUrl: 'views/widget_chart.html',
+        controller: function($scope, marmixData, config){
             $scope.data = marmixData;
+            $scope.dashboard = marmixData.findDashboard($scope);
+
+            function registerStockDetailUpdate(id){
+                marmixData.stocksDetails[id] = true;
+                marmixData.updateStock(id);
+            }
+
+            if(config.stockID){
+                registerStockDetailUpdate(config.stockID);
+            } else {
+                $scope.$watch('dashboard.currentStock.id', function(){
+                    if($scope.dashboard.currentStock.id) {
+                        registerStockDetailUpdate($scope.dashboard.currentStock.id);
+                    }
+                });
+            }
+
+        },
+        edit: {
+            templateUrl: 'views/widget_edit_stock_select.html',
+             controller: function($scope, marmixData){
+                $scope.data = marmixData;
+            },
         },
       });
   });

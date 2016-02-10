@@ -1,0 +1,73 @@
+ <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Stock</th>
+        <th class="text-right">Quantity</th>
+        <th class="text-right">Total Quantity</th>
+        <th class="text-right">% Owned</th>
+        <th class="text-right">Quote</th>
+        <th class="text-right">Market Value</th>
+        <th class="text-right">Purchase Value</th>
+        <th class="text-right">Gain</th>
+        <th class="text-right">Gain %</th>
+        <th class="text-right">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-click="dashboard.setCurrentStock(holding.stock_id)" ng-class="{selected: dashboard.currentStock.id == holding.stock_id}" ng-repeat="holding in data.holdings.stocks|filter:stockFilter track by holding.stock_id">
+        <td class="pointer">{{holding.symbol}}</td>
+        <td class="text-right">{{holding.quantity}}</td>
+        <td class="text-right">{{holding.outstanding_shares | number : 0}}</td>
+        <td class="text-right">{{holding.shares_p*100 | number : 2}}%</td>
+        <td class="text-right">{{holding.price | number : 2}}</td>
+        <td class="text-right">{{holding.value | number : 2}}</td>
+        <td class="text-right">{{holding.amount | number : 2}}</td>
+        <td class="text-right" updown-class="holding.gain">{{holding.gain | number : 2}}</td>
+        <td class="text-right" updown-class="holding.gain_p">{{holding.gain_p | number : 2}}%</td>
+        <td class="text-right">
+        <button class="btn btn-success btn-sm" ng-click="order(holding.stock_id, 'BID');$event.stopPropagation()">Buy</button>
+        <button class="btn btn-danger btn-sm" ng-click="order(holding.stock_id, 'ASK');$event.stopPropagation()">Sell</button>
+        </td>
+    </tr>
+    <tr ng-show="data.holdings.cash.TRANSACTIONS" ng-click="dashboard.setCurrentStock()" class="italic">
+        <td class="pointer" colspan="3">{{data.holdings.cash.TRANSACTIONS.asset}}</td>
+        <td></td>
+        <td></td>
+        <td class="text-right">{{data.holdings.cash.TRANSACTIONS.amount | number : 2}}</td>
+        <td class="text-right">{{data.holdings.cash.TRANSACTIONS.value | number : 2}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-show="data.holdings.cash.DIVIDENDS" ng-click="dashboard.setCurrentStock()" class="italic">
+        <td class="pointer" colspan="3">{{data.holdings.cash.DIVIDENDS.asset}}</td>
+        <td></td>
+        <td></td>
+        <td class="text-right">{{data.holdings.cash.DIVIDENDS.amount | number : 2}}</td>
+        <td class="text-right">{{data.holdings.cash.DIVIDENDS.value | number : 2}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="pointer" colspan="3" ng-click="dashboard.setCurrentStock()">{{data.holdings.cash.CASH.asset}}</td>
+        <td></td>
+        <td></td>
+        <td class="text-right">{{data.holdings.cash.CASH.amount | number : 2}}</td>
+        <td class="text-right">{{data.holdings.cash.CASH.value | number : 2}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="3">Balance</td>
+        <td></td>
+        <td></td>
+        <td class="text-right">{{data.holdings.balance.market_value | number : 2}}</td>
+        <td class="text-right">{{data.holdings.balance.purchase_value | number : 2}}</td>
+        <td class="text-right" updown-class="data.holdings.balance.gain">{{data.holdings.balance.gain | number : 2}}</td>
+        <td class="text-right" updown-class="data.holdings.balance.gain_p">{{data.holdings.balance.gain_p | number : 2}}%</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>

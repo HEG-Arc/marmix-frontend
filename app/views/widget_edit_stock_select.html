@@ -1,0 +1,4 @@
+<select class="form-control" ng-model="config.stockID">
+    <option value="">Active selection</option>
+    <option ng-repeat="m in data.market" value="{{m.id}}">{{m.symbol}} {{m.name}}</option>
+</select>

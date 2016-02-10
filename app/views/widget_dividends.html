@@ -1,0 +1,18 @@
+<uib-tabset>
+    <uib-tab ng-repeat="(r, rd) in data.dividends" heading="R{{r}}">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Symbol</th>
+            <th class="text-right">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="dividend in rd|filter:stockFilter track by dividend.id">
+        <td>{{dividend.stock}}</td>
+        <td class="text-right">{{dividend.amount | number : 2}}</td>
+        </tr>
+        </tbody>
+    </table>
+    </uib-tab>
+</uib-tabset>
