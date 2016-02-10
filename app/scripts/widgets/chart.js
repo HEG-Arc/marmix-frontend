@@ -14,6 +14,9 @@ angular.module('marmixApp')
             function registerStockDetailUpdate(id){
                 marmixData.stocksDetails[id] = {history:[]};
                 marmixData.updateStock(id);
+                var stock = marmixData.getStock(id)
+                //hack title
+                $scope.$parent.model.title = $scope.$parent.content.title + ': ' + stock.symbol;
             }
 
             if(config.stockID){

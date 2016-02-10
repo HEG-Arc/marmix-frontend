@@ -33,6 +33,9 @@ angular.module('marmixApp')
             function registerBookOfOrderUpdate(id){
                 marmixData.booksoforders[id] = [];
                 marmixData.updateStockBook(id);
+                var stock = marmixData.getStock(id)
+                //hack title
+                $scope.$parent.model.title = $scope.$parent.content.title + ': ' + stock.symbol;
             }
 
             if(config.stockID){
