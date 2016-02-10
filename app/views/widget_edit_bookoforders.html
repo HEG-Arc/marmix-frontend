@@ -5,3 +5,7 @@
         <option ng-repeat="m in data.market" value="{{m.id}}">{{m.symbol}} {{m.name}}</option>
     </select>
 </div>
+<div class="form-group">
+    <label for="threshold">Threshold</label>
+    <input id="threshold" type="number" class="form-control" ng-model="config.threshold" placeholder="+/- rows around market" />
+</div>

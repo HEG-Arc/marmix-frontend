@@ -12,7 +12,7 @@ angular.module('marmixApp')
             $scope.dashboard = marmixData.findDashboard($scope);
 
             function registerStockDetailUpdate(id){
-                marmixData.stocksDetails[id] = true;
+                marmixData.stocksDetails[id] = {history:[]};
                 marmixData.updateStock(id);
             }
 

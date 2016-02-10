@@ -1,28 +1,29 @@
-<div class="modal-header">
-    <h3 class="modal-title">Send a {{order.order_type}} Order</h3>
-</div>
 <div class="modal-body">
+    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="2000">{{alert.msg}}</uib-alert>
     <form>
     <div class="form-group">
         <label class="control-label">Stock</label>
-        <div>{{stock.symbol}}, {{stock.name}}</div>
+        <select required="required" class="form-control" ng-model="order.stock.id">
+            <option ng-repeat="m in data.market" value="{{m.id}}">{{m.symbol}} {{m.name}}</option>
+        </select>
     </div>
     <div class="form-group">
         <label for="id_quantity" class="control-label">Quantity</label>
-        <input type="number" class="numberinput form-control" id="id_quantity" min="1" ng-model="order.quantity"/>
+        <input  required="required"  type="number" class="numberinput form-control" id="id_quantity" min="1" ng-model="order.quantity"/>
         <p id="hint_id_quantity" class="help-block">Quantity ordered. If the total quantity can not be provided, a new order will be created with the balance</p>
     </div>
     <div class="form-group">
         <label for="id_price" class="control-label">Price tag</label>
-        <input type="number" class="numberinput form-control"  id="id_price" ng-model="order.price" placeholder="current market: {{stock.price|number:2}}" />
+        <input type="number" class="numberinput form-control"  id="id_price" ng-model="order.price" placeholder="current market: {{data.getStock(order.stock.id).price|number:2}}" />
         <p id="hint_id_price" class="help-block">Price tag for one stock. If NULL, best available price</p>
     </div>
     </form>
-    <div class="text-right">Cost: {{order.quantity * (order.price || stock.price) || 0 | number: 2}}</div>
+    <div class="text-right">Cost: {{order.quantity * (order.price || data.getStock(order.stock.id).price) || 0 | number: 2}}</div>
     <div class="text-right">CASH: {{data.holdings.cash.CASH.amount | number: 2}}</div>
-    <div class="text-right">Diff: {{data.holdings.cash.CASH.amount - (order.quantity * (order.price || stock.price)) | number: 2}}</div>
+    <div class="text-right">Diff: {{data.holdings.cash.CASH.amount - (order.quantity * (order.price || data.getStock(order.stock.id).price)) | number: 2}}</div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">Send</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-warning" ng-click="reset()">RESET</button>
+    <button ng-disabled="order.order_type=='ASK' ||!order.quantity || !order.stock.id" class="btn btn-success" ng-click="ok('BID')">BUY</button>
+    <button ng-disabled="order.order_type=='BID' || !order.quantity || !order.stock.id" class="btn btn-danger" ng-click="ok('ASK')">SELL</button>
 </div>

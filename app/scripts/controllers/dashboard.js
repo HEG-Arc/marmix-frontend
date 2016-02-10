@@ -45,6 +45,16 @@ angular.module('marmixApp')
         self.history = [];
     };
 
+    this.currentOrder = {
+    };
+
+    this.order = function(stockID, order_type, quantity, price){
+        this.currentOrder.stockID = stockID;
+        this.currentOrder.order_type = order_type;
+        this.currentOrder.quantity = quantity;
+        this.currentOrder.price = price;
+    };
+
     $scope.$on('adfDashboardChanged', function(event, name, model) {
       //TODO move to service and http
       localStorage.setItem('dashboard', angular.toJson(model));

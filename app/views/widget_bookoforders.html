@@ -1,17 +1,20 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Quantity (Nb of orders)</th>
-            <th>Price</th>
+            <th class="text-right">Quantity</th>
+            <th class="text-right">Nb of orders</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Action</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="order in data.booksoforders[config.stockID || dashboard.currentStock.id]" ng-class="{bid: order.order_type == 'BID', ask: order.order_type == 'ASK', market: order.order_type == 'MARKET'}">
-            <td ng-if="order.order_type != 'MARKET'">
-                {{order.quantity | number: 0}} ({{ order.orders | number: 0 }})
+        <tr ng-repeat="order in limitList(data.booksoforders[config.stockID || dashboard.currentStock.id])" ng-class="{bid: order.order_type == 'BID', ask: order.order_type == 'ASK', market: order.order_type == 'MARKET'}">
+            <td class="text-right">{{order.quantity | number: 0}}</td>
+            <td class="text-right">{{ order.orders | number: 0 }}</td>
+            <td class="text-right">{{order.price | number : 2}}</td>
+            <td class="text-right">
+                <button class="btn btn-sm btn-primary" ng-click="dashboard.order(config.stockID || dashboard.currentStock.id, order.order_type === 'MARKET' ? undefined : order.order_type === 'BID' ? 'ASK' : 'BID', order.quantity, order.price)">SELECT</button>
             </td>
-            <td ng-if="order.order_type == 'MARKET'"></td>
-            <td>{{order.price | number : 2}}</td>
         </tr>
     </tbody>
 </table>

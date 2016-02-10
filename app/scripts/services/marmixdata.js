@@ -22,7 +22,7 @@ angular.module('marmixApp')
       var i=0;
       if(self.market){
         for(i=0; i < self.market.length; i++){
-            if(self.market[i].id === stockID){
+            if(self.market[i].id === Number(stockID)){
             return self.market[i];
             }
         }
@@ -81,17 +81,19 @@ angular.module('marmixApp')
 
 
     this.updateStock = function(id){
-        $http.get(APIURL + '/stocks/' + id + '/')
-        .success(function(data) {
-            self.stocksDetails[id] = data;
-            var year = new Date().getYear()+1900;
-            self.stocksDetails[id].history.filter(function(s){
-                return s.sim_day !== 0;
-            })
-            .forEach(function(s){
-                s.date =  new Date(year, s.sim_round + 1, s.sim_day, 0, 0, 0, 0);
+        if(!isNaN(id)){
+            $http.get(APIURL + '/stocks/' + id + '/')
+            .success(function(data) {
+                self.stocksDetails[id] = data;
+                var year = new Date().getYear()+1900;
+                self.stocksDetails[id].history.filter(function(s){
+                    return s.sim_day !== 0;
+                })
+                .forEach(function(s){
+                    s.date =  new Date(year, s.sim_round + 1, s.sim_day, 0, 0, 0, 0);
+                });
             });
-        });
+        }
     };
 
     this.updateStocksDetails = function(){
@@ -99,10 +101,12 @@ angular.module('marmixApp')
     };
 
     this.updateStockBook = function(id){
-        $http.get(APIURL + '/book/' + id + '/')
-        .success(function(data) {
-            self.booksoforders[id] = data;
-        });
+        if(!isNaN(id)){
+            $http.get(APIURL + '/book/' + id + '/')
+            .success(function(data) {
+                self.booksoforders[id] = data;
+            });
+        }
     };
 
     this.updateBooksofOrders = function () {

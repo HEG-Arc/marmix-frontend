@@ -7,7 +7,6 @@ angular.module('marmixApp')
         title: 'Sim Clock',
         description: 'Displays the current simulation round and day',
         template: 'R{{data.clock.sim_round}}/D{{data.clock.sim_day |numberFixedLen:2 }} - {{data.clock.state}}<br/><small>{{data.holdings.clock.timestamp|date:"medium"}}</small></h2>',
-        frameless: true,
         edit: {
             template: ' '
         },

@@ -11,8 +11,27 @@ angular.module('marmixApp')
             $scope.data = marmixData;
             $scope.dashboard = marmixData.findDashboard($scope);
 
+            function findMarketIndex(list){
+                for(var i=0; i < list.length; i++){
+                    if(list[i].order_type === 'MARKET'){
+                        return i;
+                    }
+                }
+            }
+
+            $scope.limitList = function(list){
+                config.threshold = 0;
+                if(config.threshold){
+                    var idx = findMarketIndex(list);
+                    var from = Math.max(0, idx - config.threshold);
+                    var to = Math.min(list.length, idx + config.threshold);
+                    return list.slice(from, to);
+                }
+                return list;
+            };
+
             function registerBookOfOrderUpdate(id){
-                marmixData.booksoforders[id] = true;
+                marmixData.booksoforders[id] = [];
                 marmixData.updateStockBook(id);
             }
 
@@ -28,7 +47,7 @@ angular.module('marmixApp')
 
         },
         edit: {
-            templateUrl: 'views/widget_edit_stock_select.html',
+            templateUrl: 'views/widget_edit_bookoforders.html',
              controller: function($scope, marmixData){
                 $scope.data = marmixData;
             },

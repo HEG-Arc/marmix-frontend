@@ -25,8 +25,11 @@
         <td class="text-right" updown-class="holding.gain">{{holding.gain | number : 2}}</td>
         <td class="text-right" updown-class="holding.gain_p">{{holding.gain_p | number : 2}}%</td>
         <td class="text-right">
+        <!--
         <button class="btn btn-success btn-sm" ng-click="order(holding.stock_id, 'BID');$event.stopPropagation()">Buy</button>
         <button class="btn btn-danger btn-sm" ng-click="order(holding.stock_id, 'ASK');$event.stopPropagation()">Sell</button>
+        -->
+        <button class="btn btn-primary btn-sm" ng-click="dashboard.order(holding.stock_id, undefined, holding.quantity)">SELECT</button>
         </td>
     </tr>
     <tr ng-show="data.holdings.cash.TRANSACTIONS" ng-click="dashboard.setCurrentStock()" class="italic">
