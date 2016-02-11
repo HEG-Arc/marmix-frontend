@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('marmixApp')
-.directive('stSelectMultiple', [function() {
+.directive('stSelectMultiple', function() {
       return {
         restrict: 'E',
         require: '^stTable',
@@ -128,4 +128,4 @@ angular.module('marmixApp')
           }
         }
       };
-    }]);
+    });

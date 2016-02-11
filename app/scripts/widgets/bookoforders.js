@@ -7,7 +7,7 @@ angular.module('marmixApp')
         title: 'Book of Orders',
         description: 'Displays the current market orders',
         templateUrl: 'views/widget_bookoforders.html',
-        controller: function($scope, marmixData, config){
+        controller: ['$scope', 'marmixData', 'config', function($scope, marmixData, config){
             $scope.data = marmixData;
             $scope.dashboard = marmixData.findDashboard($scope);
 
@@ -52,12 +52,12 @@ angular.module('marmixApp')
                 });
             }
 
-        },
+        }],
         edit: {
             templateUrl: 'views/widget_edit_bookoforders.html',
-             controller: function($scope, marmixData){
+             controller: ['$scope', 'marmixData', function($scope, marmixData){
                 $scope.data = marmixData;
-            },
-        },
+            }]
+        }
       });
   });

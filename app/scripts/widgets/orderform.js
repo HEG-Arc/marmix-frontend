@@ -13,7 +13,7 @@ angular.module('marmixApp')
         edit: {
             templateUrl: 'views/widget_edit_orderform.html'
         },
-        controller: function($scope, $timeout, marmixData, config){
+        controller: ['$scope', 'marmixData', 'config', '$timeout', function($scope, marmixData, config, $timeout){
             $scope.data = marmixData;
             $scope.dashboard = marmixData.findDashboard($scope);
 
@@ -60,6 +60,6 @@ angular.module('marmixApp')
                     }
                 }, true);
             }
-        },
+        }]
       });
   });

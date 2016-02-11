@@ -7,7 +7,7 @@ angular.module('marmixApp')
         title: 'Holdings',
         description: 'Displays current holdings',
         templateUrl: 'views/widget_holdings.html',
-        controller: function($scope, marmixData, config){
+        controller: ['$scope', 'marmixData', 'config', function($scope, marmixData, config){
             $scope.data = marmixData;
             $scope.stockFilter = function(holding){
                 if(config.stock && Object.keys(config.stock).every(function(key){ return config.stock[key];})){
@@ -16,12 +16,12 @@ angular.module('marmixApp')
                 return true;
             };
             $scope.dashboard = marmixData.findDashboard($scope);
-        },
+        }],
         edit: {
             templateUrl: 'views/widget_holdings_edit.html',
-            controller: function($scope, marmixData){
+            controller: ['$scope', 'marmixData', function($scope, marmixData){
                 $scope.data = marmixData;
-            },
+            }],
         },
       });
   });

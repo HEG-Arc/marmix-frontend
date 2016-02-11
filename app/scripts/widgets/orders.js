@@ -10,8 +10,8 @@ angular.module('marmixApp')
         edit: {
             template: ' '
         },
-        controller: function($scope, marmixData){
+        controller: ['$scope', 'marmixData', function($scope, marmixData){
             $scope.data = marmixData;
-        },
+        }]
       });
   });

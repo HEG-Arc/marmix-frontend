@@ -14,8 +14,8 @@ angular.module('marmixApp')
         edit: {
             templateUrl: 'views/widget_edit_simclock.html'
         },
-        controller: function($scope, marmixData){
+        controller: ['$scope', 'marmixData', function($scope, marmixData){
             $scope.data = marmixData;
-        },
+        }]
       });
   });

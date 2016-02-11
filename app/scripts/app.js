@@ -21,7 +21,7 @@ angular
     'adf.provider',
     'adf.structures.base',
   ])
-  .config(function ($routeProvider, $httpProvider) {
+  .config(function($routeProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.interceptors.push('sessionRecoverer');
     $routeProvider

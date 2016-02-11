@@ -7,7 +7,7 @@ angular.module('marmixApp')
         title: 'Chart',
         description: 'Displays chart for a stock',
         templateUrl: 'views/widget_chart.html',
-        controller: function($scope, marmixData, config){
+        controller: ['$scope', 'marmixData', 'config', function($scope, marmixData, config){
             $scope.data = marmixData;
             $scope.dashboard = marmixData.findDashboard($scope);
 
@@ -34,12 +34,12 @@ angular.module('marmixApp')
                 });
             }
 
-        },
+        }],
         edit: {
             templateUrl: 'views/widget_edit_stock_select.html',
-             controller: function($scope, marmixData){
+             controller: ['$scope', 'marmixData', function($scope, marmixData){
                 $scope.data = marmixData;
-            },
-        },
+            }]
+        }
       });
   });

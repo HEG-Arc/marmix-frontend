@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('marmixApp')
-.directive('stNumberRange', ['$timeout', function () {
+.directive('stNumberRange', function () {
     return {
         restrict: 'E',
         require: '^stTable',
@@ -34,4 +34,4 @@ angular.module('marmixApp')
             });
         }
     };
-}]);
+});
