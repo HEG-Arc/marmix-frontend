@@ -13,7 +13,7 @@ angular.module('marmixApp')
         edit: {
             templateUrl: 'views/widget_edit_orderform.html'
         },
-        controller: function($scope, marmixData, config){
+        controller: function($scope, $timeout, marmixData, config){
             $scope.data = marmixData;
             $scope.dashboard = marmixData.findDashboard($scope);
 
@@ -24,7 +24,7 @@ angular.module('marmixApp')
             };
 
             $scope.ok = function (order_type) {
-                var order = angular.copy($scope.order)
+                var order = angular.copy($scope.order);
                 order.stock = marmixData.getStock(order.stock.id);
                 order.order_type = order_type;
                 marmixData.sendOrder(order);
@@ -53,6 +53,10 @@ angular.module('marmixApp')
                         $scope.order.stock.id = String($scope.dashboard.currentOrder.stockID);
                         $scope.order.quantity = $scope.dashboard.currentOrder.quantity;
                         $scope.order.price = $scope.dashboard.currentOrder.price;
+                        $scope.updated = true;
+                        $timeout(function() {
+                            $scope.updated = false;
+                        }, 2000);
                     }
                 }, true);
             }

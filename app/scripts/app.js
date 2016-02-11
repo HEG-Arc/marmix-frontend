@@ -16,21 +16,15 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'ui.bootstrap.tabs',
-    'ui.bootstrap.modal',
     'smart-table',
     'adf',
     'adf.provider',
-    'adf.structures.base'
+    'adf.structures.base',
   ])
   .config(function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.interceptors.push('sessionRecoverer');
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
       .when('/ticker', {
         templateUrl: 'views/ticker.html',
         controller: 'TickerCtrl'
@@ -39,12 +33,12 @@ angular
         templateUrl: 'views/clock.html',
         controller: 'ClockCtrl'
       })
-      .when('/dashboard', {
+      .when('/dashboard/:id', {
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/dashboard/0'
       });
   });

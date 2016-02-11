@@ -1,4 +1,4 @@
-<div class="modal-body">
+<div class="modal-body" ng-class="{'updated': updated}">
     <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="2000">{{alert.msg}}</uib-alert>
     <form>
     <div class="form-group">
