@@ -37,10 +37,10 @@
         <div uib-collapse="nav.navCollapsed" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li ng-class="{'active': nav.isActive($index)}" ng-repeat="item in nav.store.dashboards | orderBy: title">
-              <a ng-href="#/dashboard/{{$index}}">{{item.title}}</a>
+              <a ng-href="#/board/{{$index}}">{{item.title}}</a>
             </li>
             <li>
-              <a style="cursor: pointer;" ng-href="#/dashboard/{{nav.store.dashboards.length}}">Create</a>
+              <a style="cursor: pointer;" ng-href="#/board/{{nav.store.dashboards.length}}">Create</a>
             </li>
           </ul>
         </div><!--/.nav-collapse -->

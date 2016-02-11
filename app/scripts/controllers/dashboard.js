@@ -30,7 +30,7 @@ angular.module('marmixApp')
     this.deleteDashboard = function(){
         if($window.confirm('Confirm delete this page?')){
            dashboardStore.removeDashboard($routeParams.id);
-           $location.path('/dashboard/0');
+           $location.path('/board/0');
         }
     };
 

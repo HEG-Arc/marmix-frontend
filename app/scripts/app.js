@@ -33,12 +33,12 @@ angular
         templateUrl: 'views/clock.html',
         controller: 'ClockCtrl'
       })
-      .when('/dashboard/:id', {
+      .when('/board/:id', {
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
       })
       .otherwise({
-        redirectTo: '/dashboard/0'
+        redirectTo: '/board/0'
       });
   });
