@@ -45,10 +45,19 @@ angular.module('marmixApp')
         return model;
     };
 
+    this.removeDashboard = function(id) {
+        this.dashboards.splice(0, 1);
+        this.saveDashboards();
+    };
+
+    this.saveDashboards = function(){
+        localStorage.setItem('dashboard', angular.toJson(this.dashboards));
+    };
+
 
     // AngularJS will instantiate a singleton by calling "new" on this function
     this.saveDashboard = function(id, model){
         this.dashboards[id] = model;
-        localStorage.setItem('dashboard', angular.toJson(this.dashboards));
+        this.saveDashboards();
     };
   });

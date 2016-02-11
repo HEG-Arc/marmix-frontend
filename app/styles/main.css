@@ -3,13 +3,6 @@
     padding: 0
 }
 
-.dashboard-edit {
-    position: fixed;
-    top: 10px;
-    right: 15px;
-    z-index: 1031;
-}
-
 #logo{
     height: 42px;
     margin: 4px 15px;
@@ -178,4 +171,13 @@ right: 15px;
 /* fix panels */
 .panel-body{
     padding: 0;
+}
+
+@media (min-width: 768px) {
+    .dashboard-edit {
+        position: fixed;
+        top: 10px;
+        right: 15px;
+        z-index: 1031;
+    }
 }

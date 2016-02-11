@@ -8,7 +8,7 @@
  * Controller of the marmixApp
  */
 angular.module('marmixApp')
-  .controller('DashboardCtrl', function ($scope, $routeParams, dashboardStore) {
+  .controller('DashboardCtrl', function ($scope, $window, $location, $routeParams, dashboardStore) {
     var self = this;
 
     this.model = dashboardStore.getDashboard($routeParams.id);
@@ -25,6 +25,13 @@ angular.module('marmixApp')
     };
 
     this.currentOrder = {
+    };
+
+    this.deleteDashboard = function(){
+        if($window.confirm('Confirm delete this page?')){
+           dashboardStore.removeDashboard($routeParams.id);
+           $location.path('/dashboard/0');
+        }
     };
 
     this.order = function(stockID, order_type, quantity, price){

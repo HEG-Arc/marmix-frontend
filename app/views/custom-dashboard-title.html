@@ -11,4 +11,6 @@
 
     <button class="btn btn-warning" ng-if="editMode" ng-click="cancelEditMode()">Undo changes</button>
 
+    <button class="btn btn-danger" ng-if="editMode" ng-click="$parent.$parent.$parent.dashboard.deleteDashboard()">Delete</button>
+
 </div>
