@@ -1,16 +1,16 @@
 <div ng-if="editMode" class="alert alert-info">Currently in edit mode. Save or undo your changes when you are done.</div>
 
 <div class="dashboard-edit">
-    <button class="btn btn-default" ng-if="options.editable && !editMode" ng-click="toggleEditMode()">Edit</button>
+    <button class="btn btn-sm btn-default" ng-if="options.editable && !editMode" ng-click="toggleEditMode()">Edit</button>
 
-    <button class="btn btn-primary" ng-if="editMode" ng-click="addWidgetDialog()">Add widget</button>
+    <button class="btn btn-sm btn-primary" ng-if="editMode" ng-click="addWidgetDialog()">Add widget</button>
 
-    <button class="btn btn-default" ng-if="editMode" ng-click="editDashboardDialog()">Dashboard settings</button>
+    <button class="btn btn-sm btn-default" ng-if="editMode" ng-click="editDashboardDialog()">Dashboard settings</button>
 
-    <button class="btn btn-success" ng-if="options.editable && editMode" ng-click="toggleEditMode()">Save changes</button>
+    <button class="btn btn-sm btn-success" ng-if="options.editable && editMode" ng-click="toggleEditMode()">Save changes</button>
 
-    <button class="btn btn-warning" ng-if="editMode" ng-click="cancelEditMode()">Undo changes</button>
+    <button class="btn btn-sm btn-warning" ng-if="editMode" ng-click="cancelEditMode()">Undo changes</button>
 
-    <button class="btn btn-danger" ng-if="editMode" ng-click="$parent.$parent.$parent.dashboard.deleteDashboard()">Delete</button>
+    <button class="btn btn-sm btn-danger" ng-if="editMode" ng-click="$parent.$parent.$parent.dashboard.deleteDashboard()">Delete</button>
 
 </div>

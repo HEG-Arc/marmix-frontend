@@ -8,7 +8,7 @@ angular.module('marmixApp')
         description: 'Displays an order form to buy/sell',
         templateUrl: 'views/widget_orderform.html',
         config: {
-            activeSelection: true
+            'activeSelection': true
         },
         edit: {
             templateUrl: 'views/widget_edit_orderform.html'

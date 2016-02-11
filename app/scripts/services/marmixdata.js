@@ -8,7 +8,7 @@
  * Service in the marmixApp.
  */
 angular.module('marmixApp')
-  .service('marmixData', function marmixData($http, $filter, $interval) {
+  .service('marmixData', function marmixData($http, $q, $filter, $timeout, $interval) {
     var self = this;
     var APIURL = 'https://m3.marmix.ch/api/v1';
     this.holdings = {};
@@ -28,6 +28,35 @@ angular.module('marmixApp')
         }
       }
       return undefined;
+    };
+
+    this.getStockFromSymbol = function(symbol) {
+        for(var i=0; i < self.market.length; i++){
+            if(self.market[i].symbol === symbol){
+                return self.market[i];
+            }
+        }
+    }
+
+    this.getStockPromiseFromSymbol = function(symbol){
+        var deferred = $q.defer()
+        function loop(time){
+            $timeout(function(){
+                var stock = self.getStockFromSymbol(symbol);
+                if(stock){
+                    deferred.resolve(stock);
+                } else {
+                    if(time > 1000) {
+                        deferred.reject('timeout');
+                    } else {
+                        loop(time + 100);
+                    }
+                }
+            }, time);
+        }
+        loop(0);
+
+        return deferred.promise;
     };
 
     this.cancelOrder = function(order){

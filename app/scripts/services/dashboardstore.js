@@ -9,30 +9,93 @@
  */
 angular.module('marmixApp')
   .service('dashboardStore', function () {
-    //TODO promise and http
-    var dashboards = localStorage.getItem('dashboard');
-    if (!dashboards) {
-        this.dashboards = [];
-    } else {
-        this.dashboards = angular.fromJson(dashboards);
-    }
 
     this.create = function () {
         return {
-            title: 'New Sample',
+            title: 'Default',
             titleTemplateUrl : 'views/custom-dashboard-title.html',
-            structure: '4-8',
+            structure: '9-3',
             rows: [{
                 columns: [{
-                    styleClass: 'col-md-4',
-                    widgets: []
+                    styleClass: 'col-md-9',
+                    widgets: [
+                        {type: 'holdings'},
+                        {type: 'dividends'},
+                        {type: 'chart'},
+                        {type: 'orders'},
+                    ]
                 },{
-                    styleClass: 'col-md-8',
-                    widgets: []
+                    styleClass: 'col-md-3',
+                    widgets: [
+                        {type: 'simclock',
+                        config: {sim_round: true, timestamp: true}},
+                        {type: 'orderform',
+                         config: {
+                            'activeSelection': true
+                        }},
+                        {type: 'bookoforders'}
+                    ]
                 }]
             }]
         };
     };
+
+    //TODO promise and http
+    var dashboards = localStorage.getItem('dashboard');
+    if (!dashboards) {
+        this.dashboards = [
+            this.create(),
+            {
+            title: 'Demo A F',
+            titleTemplateUrl : 'views/custom-dashboard-title.html',
+            structure: '12/6-6',
+            rows: [{
+                columns: [{
+                    styleClass: 'col-md-12',
+                    widgets: [
+                        {type: 'holdings',
+                         config: {stock:{ 'AA':true, 'FF': true}}},
+                    ]
+                }]
+            },{
+              columns: [{
+                    styleClass: 'col-md-6',
+                    widgets: [
+                        {type: 'chart',
+                        config:{
+                            symbol: 'AA'
+                        }},
+                        {type: 'bookoforders',
+                        config:{
+                            symbol: 'AA',
+                            threshold: 5
+                        }},
+                        {type: 'orderform',
+                         config: {
+                            'activeSelection': true
+                        }},
+                    ]
+                },{
+                    styleClass: 'col-md-6',
+                    widgets: [
+                        {type: 'chart',
+                        config:{
+                            symbol: 'FF'
+                        }},
+                        {type: 'bookoforders',
+                        config:{
+                            symbol: 'FF',
+                            threshold: 5
+                        }},
+                    ]
+                }]
+            }]
+        }];
+    } else {
+        this.dashboards = angular.fromJson(dashboards);
+    }
+
+
 
     this.getDashboard = function(id){
         var model = this.dashboards[id];
@@ -46,7 +109,7 @@ angular.module('marmixApp')
     };
 
     this.removeDashboard = function(id) {
-        this.dashboards.splice(0, 1);
+        this.dashboards.splice(id, 1);
         this.saveDashboards();
     };
 

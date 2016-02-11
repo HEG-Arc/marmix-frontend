@@ -8,13 +8,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="order in limitList(data.booksoforders[config.stockID || dashboard.currentStock.id]) track by $index"
+        <tr ng-repeat="order in limitList(data.booksoforders[stockID || dashboard.currentStock.id]) track by $index"
             ng-class="{bid: order.order_type == 'BID', ask: order.order_type == 'ASK', market: order.order_type == 'MARKET'}">
             <td class="text-right">{{order.quantity | number: 0}}</td>
             <td class="text-right">{{ order.orders | number: 0 }}</td>
             <td class="text-right">{{order.price | number : 2}}</td>
             <td class="text-right">
-                <button class="btn btn-sm btn-primary" ng-click="dashboard.order(config.stockID || dashboard.currentStock.id, order.order_type === 'MARKET' ? undefined : order.order_type === 'BID' ? 'ASK' : 'BID', order.quantity, order.price)">SELECT</button>
+                <button class="btn btn-sm btn-primary" ng-click="dashboard.order(stockID || dashboard.currentStock.id, order.order_type === 'MARKET' ? undefined : order.order_type === 'BID' ? 'ASK' : 'BID', order.quantity, order.price)">SELECT</button>
             </td>
         </tr>
     </tbody>

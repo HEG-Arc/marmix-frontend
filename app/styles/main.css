@@ -1,11 +1,27 @@
+.navbar-inverse {
+    background-color: #222;
+}
+
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    background-color: #080808;
+}
 
 .navbar-brand {
     padding: 0
 }
 
 #logo{
-    height: 42px;
+    height: 38px;
     margin: 4px 15px;
+}
+
+.panel-heading {
+    padding: 5px 5px;
+}
+
+.modal-dialog {
+    width: 98%;
 }
 
 body {
@@ -173,10 +189,18 @@ right: 15px;
     padding: 0;
 }
 
+.simclock{
+    padding: 15px;
+}
+
+.simclock h2{
+    margin: 0;
+}
+
 @media (min-width: 768px) {
     .dashboard-edit {
         position: fixed;
-        top: 10px;
+        top: 5px;
         right: 15px;
         z-index: 1031;
     }

@@ -10,20 +10,27 @@
     "angular-touch": "^1.5.0",
     "amcharts-stock": "*",
     "angular-bootstrap": "^1.1.2",
-    "bootstrap-css-only": "^3.3.6",
     "angular-i18n": "^1.5.0",
     "angular-smart-table": "^2.1.7",
     "angular-dashboard-framework": "^0.11.0",
-    "adf-structures-base": "^0.1.0"
+    "adf-structures-base": "^0.1.0",
+    "bootswatch-dist": "yeti"
   },
-  "devDependencies": {
+  "devDep   endencies": {
     "angular-mocks": "^1.5.0",
     "angular-scenario": "^1.5.0"
   },
   "appPath": "app",
   "overrides": {
-      "Sortable": {
-          "main": ["Sortable.js"]
-      }
+    "Sortable": {
+      "main": [
+        "Sortable.js"
+      ]
+    },
+    "bootswatch-dist": {
+        "main": [
+            "css/bootstrap.css"
+        ]
+    }
   }
 }

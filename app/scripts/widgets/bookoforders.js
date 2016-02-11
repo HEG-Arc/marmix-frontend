@@ -20,8 +20,7 @@ angular.module('marmixApp')
             }
 
             $scope.limitList = function(list){
-                config.threshold = 0;
-                if(config.threshold){
+                if(config.threshold && list){
                     var idx = findMarketIndex(list);
                     var from = Math.max(0, idx - config.threshold);
                     var to = Math.min(list.length, idx + config.threshold);
@@ -40,8 +39,11 @@ angular.module('marmixApp')
                 }
             }
 
-            if(config.stockID){
-                registerBookOfOrderUpdate(config.stockID);
+            if(config.symbol){
+                marmixData.getStockPromiseFromSymbol(config.symbol).then(function(stock){
+                    $scope.stockID = stock.id;
+                    registerBookOfOrderUpdate($scope.stockID);
+                });
             } else {
                 $scope.$watch('dashboard.currentStock.id', function(){
                     if($scope.dashboard.currentStock.id) {

@@ -6,9 +6,13 @@ angular.module('marmixApp')
       .widget('simclock', {
         title: 'Sim Clock',
         description: 'Displays the current simulation round and day',
-        template: 'R{{data.clock.sim_round}}/D{{data.clock.sim_day |numberFixedLen:2 }} - {{data.clock.state}}<br/><small>{{data.holdings.clock.timestamp|date:"medium"}}</small></h2>',
+        templateUrl: 'views/widget_simclock.html',
+        config: {
+            sim_round: true,
+            timestamp: true
+        },
         edit: {
-            template: ' '
+            templateUrl: 'views/widget_edit_simclock.html'
         },
         controller: function($scope, marmixData){
             $scope.data = marmixData;

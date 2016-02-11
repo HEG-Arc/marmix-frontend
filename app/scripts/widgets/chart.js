@@ -21,8 +21,11 @@ angular.module('marmixApp')
                 }
             }
 
-            if(config.stockID){
-                registerStockDetailUpdate(config.stockID);
+            if(config.symbol){
+                marmixData.getStockPromiseFromSymbol(config.symbol).then(function(stock){
+                    $scope.stockID = stock.id;
+                    registerStockDetailUpdate($scope.stockID);
+                });
             } else {
                 $scope.$watch('dashboard.currentStock.id', function(){
                     if($scope.dashboard.currentStock.id) {

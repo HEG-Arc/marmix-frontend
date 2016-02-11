@@ -7,21 +7,20 @@
  * # amCharts
  */
 angular.module('marmixApp')
-  .directive('amCharts', function () {
+  .directive('amCharts', function ($timeout) {
     return {
-      template: '<div id="chartdiv" style="height:500px;"></div>',
+      template: '<div style="height:500px;"></div>',
       restrict: 'E',
       replace: true,
       scope:{
         chartData: '='
       },
-      link: function postLink(scope) {
+      link: function postLink(scope, element) {
         scope.chartData = scope.chartData || [];
-        var chart = AmCharts.makeChart('chartdiv', {
+        var chart = AmCharts.makeChart(element[0], {
           type: 'stock',
-           theme: 'light',
-            pathToImages: '//www.amcharts.com/lib/3/images/',
-
+          theme: 'light',
+          pathToImages: '//www.amcharts.com/lib/3/images/',
           dataSets: [{
             fieldMappings: [{
               fromField: 'price_open',
@@ -121,20 +120,22 @@ angular.module('marmixApp')
             graphType: 'line',
             usePeriod: 'DD'
           },
-             
+
 
             chartCursorSettings:{
                 valueLineBalloonEnabled:true,
-                valueLineEnabled:true         
+                valueLineEnabled:true
           }
         });
-        
         scope.$watch('chartData', function(){
-          chart.dataSets[0].dataProvider = scope.chartData;
-          chart.validateData();
-          chart.zoomOut();
+            if(chart.initHC){
+                chart.dataSets[0].dataProvider = scope.chartData;
+                chart.validateData();
+                chart.zoomOut();
+            }
         }, true);
-        
+
+
       }
     };
   });
