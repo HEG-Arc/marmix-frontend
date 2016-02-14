@@ -8,11 +8,12 @@
  * Controller of the marmixApp
  */
 angular.module('marmixApp')
-  .controller('DashboardCtrl', function ($scope, $window, $location, $routeParams, dashboardStore) {
+  .controller('DashboardCtrl', function ($scope, $window, $location, $routeParams, dashboardStore, marmixData) {
     var self = this;
 
     dashboardStore.getDashboard($routeParams.id).then(function(model){
         self.model = model;
+        marmixData.startUpdates();
     });
 
     this.currentStock = {};

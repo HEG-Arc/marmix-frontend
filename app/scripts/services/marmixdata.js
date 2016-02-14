@@ -111,8 +111,6 @@ angular.module('marmixApp')
       });
     };
 
-    this.updateHoldings();
-
     this.updateOrders = function(){
         $http.get(APIURL + '/orders/')
         .success(function(data) {
@@ -124,7 +122,7 @@ angular.module('marmixApp')
           self.dividends = data;
         });
     };
-    this.updateOrders();
+
 
     this.updateMarket = function(){
         $http.get(APIURL + '/market/')
@@ -132,8 +130,6 @@ angular.module('marmixApp')
           self.market = data;
         });
     };
-    this.updateMarket();
-
 
     this.updateStock = function(id){
         if(!isNaN(id)){
@@ -168,8 +164,6 @@ angular.module('marmixApp')
         Object.keys(self.booksoforders).forEach(self.updateStockBook);
     };
 
-    this.updateBooksofOrders();
-
     this.findDashboard = function(scope){
         var $dashboardScope = scope;
         while(!$dashboardScope.hasOwnProperty('dashboard')){
@@ -187,12 +181,23 @@ angular.module('marmixApp')
     }
 
     //loop update holdings
-    $interval(this.updateHoldings, 5 * 1000);
-    $interval(this.updateOrders, 15 * 1000);
-    $interval(this.updateMarket, 5 * 1000);
-    $interval(this.updateStocksDetails, 15 * 1000);
-    $interval(this.updateBooksofOrders, 5 * 1000);
+    var updatePooling = false;
+    this.startUpdates= function (){
+        if(!updatePooling){
+            this.updateMarket();
+            this.updateHoldings();
+            this.updateOrders();
+            this.updateBooksofOrders();
+            this.updateStocksDetails();
 
+            $interval(this.updateHoldings, 5 * 1000);
+            $interval(this.updateOrders, 15 * 1000);
+            $interval(this.updateMarket, 5 * 1000);
+            $interval(this.updateStocksDetails, 15 * 1000);
+            $interval(this.updateBooksofOrders, 5 * 1000);
+            updatePooling = true;
+        }
+    };
 
 
     //fake quote updates
