@@ -93,7 +93,7 @@ angular.module('marmixApp')
 
     this.saveDashboards = function(dashboardJson){
       return self.getCurrentUser().then(function(id){
-          return $http.put(APIURL + '/users/' + id + '/', {'dashboards': dashboardJson});
+          return $http.put(APIURL + '/users/' + id + '/', {'dashboard': dashboardJson});
       });
     };
 
