@@ -7,7 +7,7 @@
  * # amCharts
  */
 angular.module('marmixApp')
-  .directive('amCharts', function ($timeout) {
+  .directive('amCharts', function () {
     return {
       template: '<div style="height:500px;"></div>',
       restrict: 'E',

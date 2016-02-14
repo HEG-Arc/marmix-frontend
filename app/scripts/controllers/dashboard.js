@@ -11,7 +11,9 @@ angular.module('marmixApp')
   .controller('DashboardCtrl', function ($scope, $window, $location, $routeParams, dashboardStore) {
     var self = this;
 
-    this.model = dashboardStore.getDashboard($routeParams.id);
+    dashboardStore.getDashboard($routeParams.id).then(function(model){
+        self.model = model;
+    });
 
     this.currentStock = {};
 

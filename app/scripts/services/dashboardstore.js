@@ -8,7 +8,10 @@
  * Service in the marmixApp.
  */
 angular.module('marmixApp')
-  .service('dashboardStore', function () {
+  .service('dashboardStore', function (marmixData, $q, $timeout) {
+
+    var self = this;
+    self.init = false;
 
     this.create = function () {
         return {
@@ -40,11 +43,9 @@ angular.module('marmixApp')
         };
     };
 
-    //TODO promise and http
-    var dashboards = localStorage.getItem('dashboard');
-    if (!dashboards) {
-        this.dashboards = [
-            this.create(),
+    function createDefaultDashboards(){
+        return [
+            self.create(),
             {
             title: 'Demo A F',
             titleTemplateUrl : 'views/custom-dashboard-title.html',
@@ -91,21 +92,54 @@ angular.module('marmixApp')
                 }]
             }]
         }];
-    } else {
-        this.dashboards = angular.fromJson(dashboards);
     }
 
+    function loadLocalDashboards(){
+        //showlocal
+        var dashboards = localStorage.getItem('dashboard');
+        if (!dashboards) {
+            self.dashboards = createDefaultDashboards();
+            self.saveDashboards();
+        } else {
+            self.dashboards = angular.fromJson(dashboards);
+        }
+        self.init = true;
+    }
 
+    //INIT
+    marmixData.getDashboards().then(
+        function (result){
+            try {
+                self.dashboards = angular.fromJson(result.data.dashboard);
+                if(!angular.isArray(self.dashboards) || !self.dashboards[0].title) {
+                    loadLocalDashboards();
+                }
+                self.init = true;
+            } catch(e) {
+                loadLocalDashboards();
+            }
+        },
+        loadLocalDashboards
+    );
 
     this.getDashboard = function(id){
-        var model = this.dashboards[id];
-        if (!model){
-            model = this.create();
-            this.saveDashboard(id, model);
-        } else {
-            model = this.dashboards[id];
+        var deferred = $q.defer();
+        function checkModel(){
+            if(self.init){
+                var model = self.dashboards[id];
+                if (!model){
+                    model = self.create();
+                    self.saveDashboard(id, model);
+                } else {
+                    model = self.dashboards[id];
+                }
+                deferred.resolve(model);
+            } else {
+                $timeout(checkModel, 100);
+            }
         }
-        return model;
+        checkModel();
+        return deferred.promise;
     };
 
     this.removeDashboard = function(id) {
@@ -114,11 +148,11 @@ angular.module('marmixApp')
     };
 
     this.saveDashboards = function(){
-        localStorage.setItem('dashboard', angular.toJson(this.dashboards));
+        var dashboardsJSON = angular.toJson(this.dashboards);
+        localStorage.setItem('dashboard', dashboardsJSON);
+        marmixData.saveDashboards(dashboardsJSON);
     };
 
-
-    // AngularJS will instantiate a singleton by calling "new" on this function
     this.saveDashboard = function(id, model){
         this.dashboards[id] = model;
         this.saveDashboards();

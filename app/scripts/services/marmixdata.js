@@ -36,10 +36,10 @@ angular.module('marmixApp')
                 return self.market[i];
             }
         }
-    }
+    };
 
     this.getStockPromiseFromSymbol = function(symbol){
-        var deferred = $q.defer()
+        var deferred = $q.defer();
         function loop(time){
             $timeout(function(){
                 var stock = self.getStockFromSymbol(symbol);
@@ -74,6 +74,32 @@ angular.module('marmixApp')
         .success(function(orderInstance) {
           self.orders.unshift(orderInstance);
         });
+      });
+    };
+
+    this.getCurrentUser = function(){
+        var deferred = $q.defer();
+
+        if (self.userId) {
+            deferred.resolve(self.userId);
+        } else {
+            $http.get(APIURL + '/current-user/').then(function(results){
+                self.userId = results.data.id;
+                deferred.resolve(self.userId);
+            }, deferred.reject);
+        }
+        return deferred.promise;
+    };
+
+    this.saveDashboards = function(dashboardJson){
+      return self.getCurrentUser().then(function(id){
+          return $http.put(APIURL + '/users/' + id + '/', {'dashboards': dashboardJson});
+      });
+    };
+
+    this.getDashboards = function(){
+      return self.getCurrentUser().then(function(id){
+          return $http.get(APIURL + '/users/' + id + '/');
       });
     };
 
