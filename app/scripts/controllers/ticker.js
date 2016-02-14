@@ -15,7 +15,7 @@ angular.module('marmixApp')
     function updateTicker(){
         $http.get('https://m3.marmix.ch/api/v1/tickers/')
         .success(function(data) {
-            $scope.data.tickers = data.results;
+            $scope.data.tickers = data;
         });
     }
     updateTicker();

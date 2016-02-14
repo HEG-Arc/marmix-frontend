@@ -18,7 +18,7 @@ angular.module('marmixApp')
     function updateMarket(){
         $http.get('https://m3.marmix.ch/api/v1/market/')
         .success(function(data) {
-            $scope.market = data.results;
+            $scope.market = data;
         });
     }
     updateMarket();
