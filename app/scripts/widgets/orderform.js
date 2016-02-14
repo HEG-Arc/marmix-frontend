@@ -25,7 +25,7 @@ angular.module('marmixApp')
 
             $scope.ok = function (order_type) {
                 var order = angular.copy($scope.order);
-                order.stock = marmixData.getStock(order.stock.id);
+                order.stock = order.stock.id;
                 order.order_type = order_type;
                 marmixData.sendOrder(order);
                 $scope.alerts.push({
