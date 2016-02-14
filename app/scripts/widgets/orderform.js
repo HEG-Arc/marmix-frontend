@@ -25,12 +25,13 @@ angular.module('marmixApp')
 
             $scope.ok = function (order_type) {
                 var order = angular.copy($scope.order);
+                var stock = marmixData.getStock(order.stock.id);
                 order.stock = order.stock.id;
                 order.order_type = order_type;
                 marmixData.sendOrder(order);
                 $scope.alerts.push({
                     type: 'warning',
-                    msg: 'Submitted order: ' + order.order_type + ' ' + order.quantity + ' ' + order.stock.symbol
+                    msg: 'Submitted order: ' + order.order_type + ' ' + order.quantity + ' ' + stock.symbol
                 });
             };
 
